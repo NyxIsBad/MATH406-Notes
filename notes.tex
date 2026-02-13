@@ -518,6 +518,12 @@ The answer is obviously intuitively \begin{align*}
     ax+by&=c
 \end{align*} for some nonnegative integers $x,y$. We want to find the largest $c$ such that there are no nonnegative integer solutions to this equation. Also, what are all of the values of $c$ such that there are no nonnegative integer solutions to this equation?
 
+\begin{aside}
+Professor gives an example for postage stamps with values of 3 and 5 here, which is a trivially solved problem. The idea is that if you can find 3 consecutive values of $c$ that can be achieved, then all values of $c$ greater than the largest of those 3 must also be achievable. This is because you can add 3 to any of those 3 values to get the next value, and so on. Thus, you just need to find the largest $c$ such that there are no 3 consecutive values of $c$ that can be achieved.
+
+In general, we can intuit from this that for the smallest of $a,b$, if we can find $a$ consecutive values of $c$ that can be achieved, then all values of $c$ greater than the largest of those $a$ must also be achievable. Thus, you just need to find the largest $c$ such that there are no $a$ consecutive values of $c$ that can be achieved.
+\end{aside}
+
 \underline{Example:} Suppose in some fucked up version of football the only ways to score are with 3 or 7 points. What scores can be achieved?
 
 Remember you just need 3 in a row that can be achieved and everything after is doable. 
@@ -543,5 +549,37 @@ Remember you just need 3 in a row that can be achieved and everything after is d
         14 & Yes \\
     \end{tabular}
 \end{align*}and so on. We can see that the largest score that cannot be achieved is 11, and all scores greater than 11 can be achieved.
+
+\textbf{Proposition (3.3):} Suppose $a>1, b>1$ are coprime. Then there are no nonnegative integers $x,y$ such that $ax+by=ab-a-b$. 
+
+\textbf{Proof:} (This is my proof) Let $d=\gcd(a,b)$. Since $a,b$ are coprime, $d=1$. Thus, by the extended euclidean algorithm, there exist integers $x_0,y_0$ such that $ax_0+by_0=1$. Multiplying both sides by $ab-a-b$ gives \begin{align*}
+    (ab-a-b)ax_0 + (ab-a-b)by_0 &= ab - a - b\\
+    a(x_0(ab-a-b)) + b(y_0(ab-a-b)) &= ab - a - b
+\end{align*}
+Thus, $(x_0(ab-a-b), y_0(ab-a-b))$ is an integer solution to $ax+by=ab-a-b$. Here, we will establish a contradiction.
+
+Suppose on the contrary both are positive. Note that if $x_0(ab-a-b)\geq 0$, then $x_0\geq 0$ since $ab-a-b>0$ for $a,b>1$. Similarly, if $y_0(ab-a-b)\geq 0$, then $y_0\geq 0$. We thus have that $ax_0+by_0\geq 0$. 
+
+Note here that $x_0, y_0$ are forced to sum to at most 1 since if $x_0+y_0>1\implies x_0+y_0\geq 2$, then $ax_0+by_0\geq 2a+2b>1$. Thus, $0\leq x_0+y_0\leq 1$. By integer properties, this means that either $x_0=0,y_0=0$ or one of them is 1 and the other is 0. 
+
+Then, if $x_0=0,y_0=0$, then $ax_0+by_0=0\neq 1$. If $x_0=1,y_0=0$, then $ax_0+by_0=a>1$. If $x_0=0,y_0=1$, then $ax_0+by_0=b>1$. But we need it to be identically 1, a contradiction. 
+
+Thus, there are no integer solutions to $ax+by=ab-a-b$ where both are positive. \qed
+
+\^ The general idea behind this proof is that when you plug in any arbitrary integer solution to $ax+by=ab-a-b$, you get that $ax_0+by_0=1$. Since $a,b>1$, this forces $x_0,y_0$ to be nonnegative and sum to at most 1, none of which can satisfy the equation.
+
+\begin{aside}
+The professor gives a proof that requires memorizing some answer for $x_0,y_0$, which is why I don't like it and derived my own. 
+
+\textbf{Proof:} (by the professor) Consider the Diophantine Equation \begin{align*}
+    ax+by=ab-a-b
+\end{align*}Notice that $x_0=-1, y_0=a-1$ is a solution, as \begin{align*}
+    a(-1) + b(a-1) &= -a + ab - b \\
+                   &= ab - a - b
+\end{align*}
+Thus, the general solution of the Diophantine Equation is $x=-1+bt,y=a-1-at$ for some integer $t$. 
+
+WLOG (this must be briefly justified in reality), suppose $(x,y)$ is a solution such that $x\geq 0$. Since $x\geq 0$, we have that $-1+bt\geq 0$. This implies that $t>0$, an integer, so $t\geq 1$. Then, since $y=a-1-at$, we have that $y\leq a-1-a=-1<0$. Thus, if $x\geq 0$, then $y<0$. Similarly, if $y\geq 0$, then $x<0$. Thus, there are no nonnegative integer solutions to the equation. \qed
+\end{aside}
 
 \end{document}
