@@ -1,0 +1,523 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{soul}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage[margin=1.0in]{geometry}
+\usepackage[shortlabels]{enumitem}
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+\newcommand*{\qed}{\hfill$\square$}%
+\newcommand*{\txt}[1]{\text{ #1 }}%
+\newcommand*{\iprod}[1]{\langle #1 \rangle}
+\newcommand*{\fora}{\txt{}\forall}%
+\newcommand*{\rr}{\mathbb{R}}%
+\newcommand*{\zz}{\mathbb{Z}}%
+\newcommand*{\bigo}{\mathcal{O}}%
+
+
+\newcommand*{\simu}{\sim_{\mathcal{U}}}
+\newcommand*{\dotslist}[1]{#1_{1},\dots, #1_n}
+
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
+\newmdenv[
+    topline=false,
+    bottomline=false,
+    rightline=false,
+    backgroundcolor=gray!5,
+    linecolor=blue!100,
+    skipabove=\topsep,
+    skipbelow=\topsep
+]{siderules}
+
+\newenvironment{aside}{\begin{siderules}\setlength{\leftskip}{0.3cm}}{\end{siderules}\setlength{\leftskip}{0pt}}
+
+\title{MATH406 Notes}
+\begin{document}
+\author{Nyx}
+\maketitle
+
+\parskip = 1em
+\pgfplotsset{compat=1.17}
+\setcounter{section}{0}
+
+\section{Intro}
+
+Number theory is mostly about the properties of integers 
+
+We will preemptively assume the entirety of set theory and the basics of lin alg. 
+
+Textbook: Divisibility
+
+\section{Lecture 1}
+
+\subsection{2.1 - Divisibility}
+
+We can add/subtract/multiply integers to get integers (eg prop of field, closed).
+
+\textbf{Definition:} Let $a$, $b$ be integers, $b \neq 0$. We say that $b$ divides $a$ (denoted $b|a$) if there exists an integer $k$ such that $a = bk$.
+
+Additionally, 
+\begin{itemize}
+    \item If $b$ does not divide $a$, we write $b \nmid a$.
+    \item When $d|a$, we say that $a$ is a multiple of $d$ and that $d$ is a divisor (or factor) of $a$.
+    \item For any nonzero integer $d$ we have $d|0$ since $0 = d \cdot 0$.
+    \item We never consider division by zero, so $0|a$ is not defined.
+\end{itemize}
+
+\underline{Convention:} When we talk about the set of divisors of a positive integer, we mean the set of positive divisors. For instance, the divisors of 6 are 1,2,3,6 (not -1,-2,-3,-6).
+
+\textbf{Proposition:} Let $a,b,c$ integers. Then $a|b$ and $b|c$ implies $a|c$.
+
+\textbf{Proof:} Since $a|b$, there exists an integer $k$ such that $b = ak$. Since $b|c$, there exists an integer $l$ such that $c = bl$. Thus, \begin{align*}
+    c &= bl \\
+      &= (ak)l \\
+      &= a(kl)
+\end{align*}
+Since $kl$ is an integer under field closure, we have $a|c$. \qed
+
+\textbf{Definition:} A linear combination of integers is an expression of the form $ax + by$ where $x,y$ are integers.
+
+"A divisor of both $a$ and $b$ is a divisor of any linear combination of $a$ and $b$."
+
+\textbf{Proposition:} Bilinearity of division; that is, $d|ax + by$ if $d|a$ and $d|b$.
+
+\textbf{Proof:} Since $d|a$, there exists an integer $k$ such that $a = dk$. Since $d|b$, there exists an integer $l$ such that $b = dl$. Thus, \begin{align*}
+    ax + by &= (dk)x + (dl)y \\
+            &= d(kx) + d(ly) \\
+            &= d(kx + ly)
+\end{align*}
+Since $kx + ly$ is an integer under field closure, we have $d|ax + by$. \qed
+
+\textbf{Corollary:} Suppose $a,b,d$ are integers. Then, if $d|a$ and $d|b$ then $d|(a-b)$ and $d|(a+b)$.
+
+\textbf{Proof:} Let $x = 1$ and $y = -1$ in the previous proposition to get $d|(a-b)$. Let $x = 1$ and $y = 1$ to get $d|(a+b)$. \qed
+
+\subsection{2.2 - Euclid's Theorem}
+
+\textbf{Definition:} A \underline{prime number} is an integer $p\geq 2$ whose only positive divisors are 1 and $p$ itself. An integer $n \geq 2$ that is not prime is called \underline{composite}. 
+
+\textbf{Theorem (Euclid's Theorem):} There are infinitely many prime numbers.
+
+\section{Lecture 2}
+
+\textbf{Proof of Euclid's Theorem:} Suppose there are finitely many primes $p_1, p_2, \ldots, p_n$. Let \begin{align*}
+    Q &= p_1 p_2 p_3 \cdots p_n + 1
+\end{align*}
+
+Then $Q$ is either prime or composite. If $Q$ is prime, then $Q$ is a prime not in our list. If $Q$ is composite, then $Q$ has a prime divisor $p$. Since $p$ divides the product $p_1 p_2 \cdots p_n$, it follows that $p$ does not divide $Q - p_1 p_2 \cdots p_n = 1$. Thus, $p$ is not in our list of all primes. In either case, we have a contradiction. Therefore, there are infinitely many primes. \qed
+
+\subsection{2.4 - The Sieve of Eratosthenes}
+
+\textbf{Theorem (Sieve of Eratosthenes):} To find all primes less than or equal to a given integer $n \geq 2$, we can use the following algorithm:
+\begin{enumerate}
+    \item Write down all integers from 2 to $n$.
+    \item Start with the first number $p$ in the list (which is 2). Circle $p$ and cross out all multiples of $p$ greater than $p$.
+    \item Find the next number in the list that is not crossed out. If there is no such number, stop. Otherwise, let $p$ be this new number and repeat step 2.
+    \item When the algorithm stops, the circled numbers are all the primes less than or equal to $n$.
+\end{enumerate}
+
+\textbf{Proof:} Let $p$ be any prime less than or equal to $n$. When we reach step 2 with this value of $p$, we circle it since it has not been crossed out (as it is prime). Thus, all primes less than or equal to $n$ are circled when the algorithm stops. \qed
+
+\section{Lecture 3}
+
+\subsubsection{2.5 - The Division Algorithm}
+
+Consider the grade school long division problem. We want to do, for instance, $95$ divided by $7$. We can write \begin{align*}
+    95 &= 7 \cdot 13 + 4
+\end{align*}
+
+\textbf{Theorem (The Division Algorithm):} Let $a,b\in \mathbb{Z}$ and $b>0$. Then $\exists! q,r\in \mathbb{Z}$ st \begin{align*}
+    a &= bq + r \txt{ with } 0 \leq r < b
+\end{align*}
+
+Note that if $b>a$ then $r=a$ and $q=0$. 
+
+\textbf{Proof:} (Existence) Let $q$ be the largest integer such \begin{align*}
+    q\leq \frac{a}{b}<q+1
+\end{align*}
+
+Then $bq\leq a<bq+b$. and so $0\leq a-bq<b$. Let $r=a-bq$. Then $a=bq+r$ with $0\leq r < b$. 
+
+(Uniqueness) Suppose there exist $q',r'$ such that \begin{align*}
+    a &= bq' + r' \txt{ with } 0 \leq r' < b
+\end{align*}
+Then \begin{align*}
+    bq + r &= bq' + r' \\
+    b(q-q') &= r' - r
+\end{align*}
+If $q \neq q'$, then $|b(q-q')| \geq b$ since $|q-q'| \geq 1$. But $|r'-r| < b$ since both $r$ and $r'$ are between $0$ and $b$. This is a contradiction. Thus, $q=q'$, which implies $r=r'$. \qed
+
+\textbf{Example:} \begin{enumerate}
+    \item For $a=100, b=9$, we have $100=9\cdot 11 + 1$.
+    \item For $a=-100, b=9$, we have $-100=9\cdot (-12) + 8$.
+\end{enumerate}
+
+\textbf{Corollary:} $a|b$ iff the remainder when $b$ is divided by $a$ is 0.
+
+\textbf{Proof:} Let $b=aq+r$ by the division algorithm. If $r=0$, then $b=aq$ and so $a|b$. Conversely, if $a|b$, then $b=ak$ for some integer $k$. By the uniqueness part of the division algorithm, we must have $q=k$ and $r=0$. \qed
+
+\subsubsection{2.6 - The GCD}
+
+\underline{Fact:} If you have a nonzero integer $a$, then it has finite divisors by the well-ordering principle. (eg there are only finitely many positive integers less than or equal to $|a|$, and thus finite candidates for divisors). 
+
+\textbf{Definition (GCD):} Let $a,b$ be integers, not both zero. The greatest common divisor of $a$ and $b$, denoted $\gcd(a,b)$, is the largest positive integer that divides both $a$ and $b$.
+
+\textbf{Example:} \begin{itemize}
+    \item $\gcd(12,15)=3$
+    \item $\gcd(0,5)=5$
+    \item $\gcd(0,0)$ is not defined.
+\end{itemize}
+
+\textbf{Definition (Relatively Prime):} Two integers are relatively prime if their gcd is 1.
+
+\textbf{Example:} \begin{itemize}
+    \item $\gcd(8,15)=1$ so 8 and 15 are relatively prime.
+    \item $\gcd(9,28)=1$ so 9 and 28 are relatively prime.
+    \item $\gcd(0,1)=1$ so 0 and 1 are relatively prime.
+\end{itemize}
+
+\textbf{Corollary:} $gcd(p,n)=1\iff p \nmid n$.
+
+\textbf{Proof:} If $\gcd(p,n)=1$, then the only positive divisor of both $p$ and $n$ is 1. Thus, $p$ does not divide $n$. Conversely, if $p \nmid n$, then the only positive divisor of both $p$ and $n$ is 1, so $\gcd(p,n)=1$. \qed
+
+\section{Lecture 4}
+
+Last time, we defined the GCD. 
+
+\textbf{Proposition (2.10):} Let $a,b\in \zz$ and $d=\gcd(a,b)$. Then, \begin{align*}
+    \gcd(\frac{a}{d},\frac{b}{d})=1
+\end{align*}
+
+\textbf{Proof:} Recall that the gcd is defined to be at least 1, always. We will prove that \begin{align*}
+    \gcd(\frac{a}{d},\frac{b}{d})\leq 1
+\end{align*}
+
+To do this, we will show that any common divisor of $\frac{a}{d}$ and $\frac{b}{d}$ is $\leq 1$. 
+
+Suppose that for some positive integer $c$, $c|\frac{a}{d}$ and $c|\frac{b}{d}$. By def of divisibility we thus have that $\frac{a}{d}=c\cdot k$, and that $\frac{b}{d}=c\cdot l$ for $k,l\in \zz$.
+
+Then, $a=c\cdot d \cdot k$, and $b=c\cdot d\cdot l$. This shows that $cd$ is a common divisor of $a$ and $b$. However, $d$ is the gcd of $a,b$, so it must be that $cd\leq d$. Under $\mathbb{Q}$ field properties there must $\exists!$ inverse to $d$, $\frac{1}{d}$ and by field closure we can multiply, so $c\leq 1$. \qed 
+
+\subsection{2.7 - The Euclidean Algorithm}
+
+How can we compute gcds?
+
+One method is to factor each one into primes, take the overlapping subset, and find their product. This is dumb for large integers because factoring large integers is not computationally feasible (for traditional computers)
+
+\textbf{Lemma:} Suppose $a=bq+r$. The set of common divisors of $a$ and $b$ is the same as the set of common divisors of $b$ and $r$. It thus follows they have the same gcd. 
+
+\textbf{Proof:} Suppose $a=bq+r$. Then, $a$ is a linear combination of $b,r$. Then, any common divisor of $b,r$ must also divide $a$ by a former proposition. Thus, any common divisor of $b,r$ is by definition a divisor of $b$, but also a divisor of $a$. Thus, they are also common divisors of $a,b$. 
+
+Similarly, we can rewrite the equation to say that $r=a-bq$, and thus similarly all common divisors of $a,b$ must be common divisors of $r,b$. So we are done. \qed 
+
+\underline{Note:} Here we can see the idea for the euclidean algorithm presented. We can reduce the gcd problem from $a,b$ to be $r,b$, where $r$ is strictly lesser than $a$. In fact, it's $\leq b$ by definition of division algorithm. Then, we can do this to $b$, then $r$ again, etc until the numbers are very small. 
+
+\underline{Example:} Let's use this idea to compute $\gcd(315,220)$. Then, \begin{align*}
+    315=1\cdot 220 + 95
+    220=2\cdot 95 + 30
+    95 =3\cdot 30 + 5
+    30 =6\cdot 5 + 0
+\end{align*}
+and so applying the lemma, we get that $\gcd(315,220)=\gcd(220,95)=\gcd(95,30)=\gcd(30,5)=\gcd(5,0)=5$.
+
+or the last nonzero remainder, is the gcd. 
+
+\textbf{Theorem (The Euclidean Algorithm):} Let $a,b\geq 0\in \zz,b\neq 0$. Then, $a=bq_1+r_1$ with $0\leq r_1\leq b$. Then, recursively apply the theorem with parameters $b,r$. The base case applies when the remainder is 0, in which case the divisor is the gcd. 
+
+In python, 
+\begin{lstlisting}[language=Python]
+def gcd(a,b):
+    if b==0:
+        return a
+    else:
+        return gcd(b, a%b)
+\end{lstlisting}
+
+\textbf{Proof:} This is just repeated application of the lemma. \qed
+
+\subsubsection{2.7.1 - The Extended Euclidean Algorithm}
+
+\textbf{Theorem (2.12):} $\exists x,y\in \zz$ st for $a,b\in \zz$ not both zero, $ax+by=\gcd(a,b)$.
+
+\underline{Note:} They are not unique. 
+
+\section{Lecture 5}
+
+The idea is that we can solve for the remainder. For instance, take the example:
+
+\underline{Ex:} $\gcd(1239,735)$ results in \begin{align*}
+    1239 &= 1\cdot 735 + 504 \\
+    735 &= 1\cdot 504 + 231 \\
+    504 &= 2\cdot 231 + 42 \\
+    231 &= 5\cdot 42 + 21 \\
+    42 &= 2\cdot 21 + 0
+\end{align*}
+
+But this also gives \begin{align*}
+    504 &= 1239 - 1\cdot 735 \\
+    231 &= 735 - 1\cdot 504 \\
+    42 &= 504 - 2\cdot 231 \\
+    21 &= 231 - 5\cdot 42
+\end{align*}
+
+We can substitute these all the way up to get \begin{align*}
+    21 &= 231 - 5\cdot 42 \\
+    &= 231 - 5\cdot (504 - 2\cdot 231) \\
+    &= 11\cdot 231 - 5\cdot 504 \\
+    &= 11\cdot (735 - 1\cdot 504) - 5\cdot 504 \\
+    &= 11\cdot 735 - 16\cdot 504 \\
+    &= 11\cdot 735 - 16\cdot (1239 - 1\cdot 735) \\
+    &= 27\cdot 735 - 16\cdot 1239
+\end{align*}
+
+This gives us $x=-16$ and $y=27$ such that $1239\cdot (-16) + 735\cdot 27 = 21$.
+
+\textbf{Theorem (The Extended Euclidean Algorithm):} Let $a,b\in \zz$ not both zero. Then, we can find $x,y\in \zz$ such that $ax+by=\gcd(a,b)$. Do so by: \begin{itemize}
+    \item Apply the Euclidean algorithm to find the gcd and all the remainders.
+    \item Rewrite each remainder as a linear combination of $a$ and $b$ by substituting the previous remainders.
+    \item Continue substituting until you express the gcd as a linear combination of $a$ and $b$.
+\end{itemize}
+
+In python, 
+\begin{lstlisting}[language=Python]
+def extended_gcd(a,b):
+    if b==0:
+        return (a,1,0)
+    else:
+        d,x1,y1 = extended_gcd(b, a%b)
+        x = y1
+        y = x1 - (a//b)*y1
+        return (d,x,y)
+\end{lstlisting}
+
+\textbf{Proof:} This is just the algorithm described above. The correctness follows from the Euclidean algorithm and properties of linear combinations. \qed
+
+\underline{Example:} Find $x,y$ such that $19x+7y=1$. 
+
+We apply the extended euclidean algorithm: \begin{align*}
+    19 &= 2\cdot 7 + 5 \\
+    7 &= 1\cdot 5 + 2 \\
+    5 &= 2\cdot 2 + 1 \\
+    2 &= 2\cdot 1 + 0
+\end{align*}
+
+Then, in reverse, \begin{align*}
+    1 &= 5 - 2\cdot 2 \\
+      &= 5 - 2\cdot (7 - 1\cdot 5) \\
+      &= 3\cdot 5 - 2\cdot 7 \\
+      &= 3\cdot (19 - 2\cdot 7) - 2\cdot 7 \\
+      &= 3\cdot 19 - 8\cdot 7
+\end{align*}
+
+Some applications:
+
+\textbf{Proposition (2.16):} Let $a,b,c\in \zz$ st $a\neq 0, \gcd(a,b)=1$. Then if $a|bc$, then $a|c$.
+
+The idea is that if $a,b$ are coprime, then $a$ has no common factors with $b$. Thus, if $a$ divides $bc$, it must be that $a$ divides $c$.
+
+\textbf{Proof:} Since $\gcd(a,b)=1$, there exist $x,y\in \zz$ such that $ax+by=1$. Multiplying both sides by $c$ gives $acx + bcy = c$. Since $a|acx$ and $a|bcy$ (since $a|bc$), it follows that $a|c$. \qed
+
+\textbf{Corollary:} Let $p\in \zz$ prime, and $a,b\in \zz$. Then if $p|ab$, then $p|a$ or $p|b$.
+
+\textbf{Proof:} If $p|a$, we are done. Otherwise, $\gcd(p,a)=1$ since $p$ is prime and does not divide $a$. Thus, by the previous proposition, $p|b$. \qed
+
+\textbf{Corollary (2.14):} Let $a,b,d\in \zz$ st $d=\gcd(a,b)$. For $e\in \zz$ if $e|a, e|b$, then $e|d$.
+
+\textbf{Proof:} Since $d$ is a linear combination of $a$ and $b$, we have that $d = ax + by$ for some integers $x,y$. Since $e|a$ and $e|b$, it follows that $e|ax$ and $e|by$. Thus, $e|d$. \qed
+
+\subsection{2.9 - Fermat and Mersenne Primes}
+
+We know that there are infinitely many primes by Euclid's theorem. However, are there infinitely many primes of certain forms? And can we use this to generate primes? Useful for cryptography, etc. 
+
+\textbf{Definition (Mersenne Number):} The $n$th Mersenne number is defined as $M_n = 2^n - 1$ for $n\geq 1$.
+
+\textbf{Proposition:} If $a|n$, then $M_a|M_n$. If $n$ is composite, then $M_n$ is composite.
+
+\textbf{Proof:} Suppose $n=ab$ for integers $a,b>1$. Then, \begin{align*}
+    M_n &= 2^{ab} - 1 \\
+        &= (2^a)^b - 1^b \\
+        &= (2^a - 1)\left( (2^a)^{b-1} + (2^a)^{b-2} + \cdots + 1 \right)
+\end{align*}
+Since $a,b>1$, it follows that $2^a - 1 > 1$ and the second factor is also greater than 1. Thus, $M_n$ is composite. \qed
+
+\underline{Example:} $M_10 = 2^{10} - 1 = 1023$ is composite. We know that $2|10$ so $M_2|M_{10}$. In fact, $M_2=3$ and $1023=3\cdot 341$. Also, $5|10$ so $M_5|M_{10}$. In fact, $M_5=31$ and $1023=31\cdot 33$.
+
+\underline{Note:} If $p$ is prime, is $M_p$ prime? For some, yes, i.e. 13, 17, 19. However $M_{11}$ isn't prime for instance. 
+
+\textbf{Definition (Fermat Number):} The $n$th Fermat number is defined as $F_n = 2^{2^n} + 1$ for $n\geq 0$.
+
+\underline{Note:} He initially looked at $2^m+1$ but found that unless $m$ is a power of 2, $2^m+1$ is composite. For instance, $2^6+1=65$ is composite.
+
+\textbf{Proposition:} For $2^m+1$, if $m$ is not a power of 2, then $2^m+1$ is composite. If $m=2^n$, then $2^m+1$ is prime for $n=0,1,2,3$ but composite for $n=4$.
+
+\textbf{Proof:} Suppose $m$ is not a power of 2. Recall that if $k$ is odd, then $x^k+1$ is divisible by $x+1$. Since $m$ is not a power of 2, then we can write $m=2^n\cdot k$ for some odd integer $k>1$. Then, \begin{align*}
+    2^m + 1 &= 2^{2^n\cdot k} + 1 \\
+            &= (2^{2^n})^k + 1^k \\
+            &= (2^{2^n} + 1)\left( (2^{2^n})^{k-1} - (2^{2^n})^{k-2} + \cdots - 1 \right)
+\end{align*}
+Since $k>1$, it follows that $2^{2^n} + 1 > 1$ and the second factor is also greater than 1. Thus, $2^m + 1$ is composite. \qed
+
+\section{Lecture 6}
+
+\textbf{Proposition:} If $M_p=2^p-1$ is prime, then $p$ is prime. Such an $M_p$ is called a Mersenne prime.
+
+\underline{Note:} There are only 52 known Mersenne primes! And it's not known if there are infinitely many.
+
+It turns out that $F_5, F_6, F_7$ are all composite. In fact, only $F_0$ to $F_4$ are known to be prime. It is not known if there are infinitely many Fermat primes.
+
+\section{Lecture 7}
+
+Chapter 3 now, Linear Diophantine Equations.
+
+\subsection{3.1 - Linear Diophantine Equations}
+
+Take $ax+by=c$ for $a,b,c\in \zz$. We are interested in integer pairs $(x,y)$ that satisfy this linear diophantine equation.
+
+The goal will be to describe \underline{all} such solutions $(x,y)$
+
+\underline{Example:} Find integers $x,y$ such that $19x+7y=1$.
+
+By the extended euclidean algorithm, \begin{align*}
+    19 &= 2\cdot 7 + 5 \\
+    7 &= 1\cdot 5 + 2 \\
+    5 &= 2\cdot 2 + 1 \\
+    2 &= 2\cdot 1 + 0
+\end{align*}
+
+Then, in reverse, \begin{align*}
+    1 &= 5 - 2\cdot 2 \\
+      &= 5 - 2\cdot (7 - 1\cdot 5) \\
+      &= 3\cdot 5 - 2\cdot 7 \\
+      &= 3\cdot (19 - 2\cdot 7) - 2\cdot 7 \\
+      &= 3\cdot 19 - 8\cdot 7
+\end{align*}
+
+Then, one solution is $3, -8$. There are infinitely many solutions, since we can add $7k$ to $x$ and subtract $19k$ from $y$ for any integer $k$ to get another solution. So, the set of all solutions is $\{ (3+7k, -8-19k) : k\in \zz \}$.
+
+\underline{Example:} Find integers $x,y$ such that $19x+7y=6$. 
+
+We do know that \begin{align*}
+    1&= 3\cdot 19 - 8\cdot 7 \\
+    6&= 18\cdot 19 - 48\cdot 7 \\
+\end{align*}
+
+Then, we can similarly add $7k$ to $x$ and subtract $19k$ from $y$ for any integer $k$ to get another solution. So, the set of all solutions is $\{ (18+7k, -48-19k) : k\in \zz \}$.
+
+\underline{Example:} Find integers $x,y$ such that $6x+15y=10$. 
+
+There are no integer solutions since $\gcd(6,15)=3$ does not divide 10. Generally if $\gcd(a,b)$ does not divide $c$, then there are no integer solutions to $ax+by=c$.
+
+\textbf{Proof:} Let $d=\gcd(a,b)$. Then $d|a, d|b$ and $d|ax+by$ by bilinearity of divisibility. However, $d\nmid c$ by assumption, so there are no integer solutions to $ax+by=c$. \qed
+
+\textbf{Theorem (3.1):} Assume $a,b,c\in \zz$, and at least one of $a,b\neq 0$, and let $d=\gcd(a,b)$. Then, \begin{enumerate}[(1)]
+    \item The equation $ax+by=c$ has integer solutions iff $d|c$.
+    \item Additionally, if it has an integer solution, it has infinitely many integer solutions. In particular, if $(x_0,y_0)$ is one integer solution, then the set of all integer solutions is given by \begin{align*}
+        \{ (x_0 + \frac{b}{d}k, y_0 - \frac{a}{d}k) : k\in \zz \}
+    \end{align*}
+\end{enumerate}
+
+\textbf{Proof:} \begin{enumerate}[(1)]
+    \item $\Rightarrow$: Let $ax+by=c$ have integer solutions. Then, since $d|a,d|b$, we have that $d|ax+by$ by bilinearity of divisibility. Thus, $d|c$.
+    
+    $\Leftarrow$ Suppose $d|c$. THen, $c=d\cdot e$ for some integer $e$. Since $d$ is a linear combination of $a$ and $b$, we have that $d = ax_0 + by_0$ for some integers $x_0,y_0$. Thus, \begin{align*}
+        c &= d\cdot e \\
+          &= (ax_0 + by_0)e \\
+          &= a(ex_0) + b(ey_0)
+    \end{align*}
+    So, $(ex_0, ey_0)$ is an integer solution to $ax+by=c$.
+    \item (This is my own proof) First, $\frac{b}{d}, \frac{a}{d}\in \zz$ by proposition 2.10. Now, let $(x_0,y_0)$ be one integer solution to $ax+by=c$. Then, for any integer $k$, we have \begin{align*}
+        a(x_0 + \frac{b}{d}k) + b(y_0 - \frac{a}{d}k) &= ax_0 + by_0 + ab\frac{k}{d} - ab\frac{k}{d} \\
+        &= c
+    \end{align*}
+    Thus, $(x_0 + \frac{b}{d}k, y_0 - \frac{a}{d}k)$ is an integer solution for any integer $k$.
+\end{enumerate}\qed
+
+\textbf{Definition (Homogeneous LDE):} A linear diophantine equation of the form $ax+by=0$ is called a homogeneous linear diophantine equation.
+
+\textbf{Lemma:} Suppose $a,b$ are not both 0. Then \begin{enumerate}[(1)]
+    \item If $\gcd(a,b)=1$, every solution to $ax+by=0$ is of the form $(bk, -ak)$ for some integer $k$.
+    \item In general, if $d=\gcd(a,b)$, every solution to $ax+by=0$ is of the form $(\frac{b}{d}k, -\frac{a}{d}k)$ for some integer $k$.
+\end{enumerate}
+
+\textbf{Proof:} \begin{enumerate}[(1)]
+    \item Let $a,b$ not both 0. Suppose $\gcd(a,b)=1$. Let $(x,y)$ be a solution to $ax+by=0$. Then, $ax=-by$ and so $a|by$. Since $\gcd(a,b)=1$, it follows that $a|y$. Thus, $y=ak$ for some integer $k$. Substituting back gives $ax=-bak$, so $x=-bk$. Thus, every solution is of the form $(bk, -ak)$ for some integer $k$.
+    \item Let $a,b$ not both 0. Let $d=\gcd(a,b)$. Let $(x,y)$ be a solution to $ax+by=0$. Then, $ax=-by$ and so $a|by$. Since $\gcd(a,b)=d$, it follows that $\frac{a}{d}|\frac{b}{d}y$. Since $\gcd(\frac{a}{d}, \frac{b}{d})=1$ by proposition 2.10, it follows that $\frac{a}{d}|y$. Thus, $y=\frac{a}{d}k$ for some integer $k$. Substituting back gives $ax=-b\frac{a}{d}k$, so $x=-\frac{b}{d}k$. Thus, every solution is of the form $(\frac{b}{d}k, -\frac{a}{d}k)$ for some integer $k$.
+\end{enumerate}
+
+\section{Lecture 8}
+
+\textbf{Theorem (3.1):} Let $d=\gcd(a,b)$. Then \begin{enumerate}
+    \item $ax+by=c$ has solutions iff $d|c$. 
+    \item If $(x_0,y_0)$ is one solution to $ax+by=c$, then the solution set is given by \begin{align*}
+        x=x_0+\frac{b}{d}t, y=y_0-\frac{a}{d}t
+    \end{align*}where $t$ is an integer
+\end{enumerate}
+
+We proved this last time, along with a related lemma. I will now write Prof's proof of part 2.
+
+\textbf{Proof:} (of part 2) Suppose $(x_0,y_0)$ is some solution for $ax+by=c$. Then, we should show that the above format gives solutions, and additionally that they are all of the solutions. So \begin{itemize}
+    \item Verify it is a solution: \begin{align*}
+        a(x_0+\frac{b}{d}t)+b(y_0+\frac{a}{d}t)&=ax_0+\frac{ab}{d}t+by_0-\frac{ab}{d}t \\
+        &= ax_0+by_0 
+    \end{align*}
+    which is a solution by assumption. 
+    \item Verify it is all the solutions: Let $(x,y)$ be any solution to $ax+by=c$. Then, \begin{align*}
+        a(x-x_0)+b(y-y_0) &= ax+by - (ax_0+by_0) \\
+        &= c-c \\
+        &= 0
+    \end{align*}
+    Thus, $(x-x_0,y-y_0)$ is a solution to the homogeneous linear diophantine equation $ax+by=0$. By the previous lemma, there exists an integer $t$ such that \begin{align*}
+        (x-x_0,y-y_0) &= (\frac{b}{d}t, -\frac{a}{d}t)
+    \end{align*}
+    Thus, \begin{align*}
+        (x,y) &= (x_0+\frac{b}{d}t, y_0-\frac{a}{d}t)
+    \end{align*}
+    which is of the desired form.
+\end{itemize}\qed 
+
+\underline{Note:} Thus, to solve a linear diophantine equation \begin{align*}
+    ax+by=c
+\end{align*}, first ensure that $d=\gcd(a,b)$ divides $c$. If not, there are no solutions. If it does, then find one solution $(x_0,y_0)$ using the extended euclidean algorithm. Then, the set of all solutions is given by \begin{align*}
+    \{ (x_0 + \frac{b}{d}t, y_0 - \frac{a}{d}t) : t\in \zz \}
+\end{align*}
+
+\underline{Example:} Solve $12x+45y=30$. Then, $\gcd(12,45)=3, 3|30$ so there are solutions \begin{align*}
+    45 &= 12(3)+9\\
+    12 &= 9(1)+3 \\
+    9 &= 3(3)+0
+\end{align*}
+going back up we have \begin{align*}
+    3 &= 12 - 9(1) \\
+      &= 12 - (45 - 12(3)) \\
+      &= 4\cdot 12 - 45
+\end{align*}
+we can multiply by 10 to get $30 = 40\cdot 12 - 10\cdot 45$. Thus, one solution is $(40,-10)$. The set of all solutions is given by \begin{align*}
+    \{ (40 + 15t, -10 - 4t) : t\in \zz \}
+\end{align*}
+
+\subsection{3.2 - Postage Stamp Problem}
+
+\textbf{Problem:} You have an unlimited supply of 3 cent and 5 cent stamps. What amounts of postage can you make? Generalize this to $a$ cent and $b$ cent stamps, frequently where $a,b$ are coprime.
+
+The answer is obviously intuitively \begin{align*}
+    ax+by&=c
+\end{align*} for some nonnegative integers $x,y$. We want to find the largest $c$ such that there are no nonnegative integer solutions to this equation. Also, what are all of the values of $c$ such that there are no nonnegative integer solutions to this equation?
+
+\underline{Example:} Suppose in some fucked up version of football the only ways to score are 
+
+\end{document}
