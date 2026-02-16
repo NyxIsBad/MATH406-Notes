@@ -576,4 +576,78 @@ Thus, the general solution of the Diophantine Equation is $x=-1+bt,y=a-1-at$ for
 WLOG, suppose $(x,y)$ is a solution such that $x\geq 0$. Since $x\geq 0$, we have that $-1+bt\geq 0$. This implies that $t>0$, an integer, so $t\geq 1$. Then, since $y=a-1-at$, we have that $y\leq a-1-a=-1<0$. Thus, if $x\geq 0$, then $y<0$. Similarly, if $y\geq 0$, then $x<0$. Thus, there are no nonnegative integer solutions to the equation. \qed
 \end{aside}
 
+\section{Lecture 9}
+
+\underline{Recall:} The postage stamp problem asks, given $a,b$ coprime positive integers, what is the largest integer $c$ such that there are no nonnegative integer solutions to $ax+by=c$?
+
+\textbf{Proposition (3.4):} Let $a,b$ be coprime positive integers. If $n\geq ab-a-b+1$ then there are nonnegative integers $x,y,$ such that $ax+by=n$.
+
+\textbf{Proof:} Let $(x_0,y_0)$ be an integer solution to $ax+by=n$, which exists because $\gcd(a,b)=1$ divides $n$. Then, the set of all integer solutions is given by \begin{align*}
+    \{ (x_0 + bk, y_0 - ak) : k\in \zz \}
+\end{align*}
+
+Divide $y_0$ by $a$ to get $y_0=qa+r$ for some integer $q$ and $0\leq r<a$ by the division algorithm. Consider the solution $(x_1,y_1)$ corresponding to $k=q$, which is given by \begin{align*}
+    (x_1,y_1) &= (x_0 + bq, y_0 - ak) \\
+             &= (x_0 + bq, r)
+\end{align*}Thus, $0\leq y_1<a$. We need to show that $x_1\geq 0$. Note that we have that $n\geq ab-a-b-1$, and also that $y_1\leq a-1$ because $y_1=r<a$. This implies $-y_1\geq -(a-1)$. Since $ax_1+by_1=n$, we have \begin{align*}
+    x_1&=\frac{n-by_1}{a} \\
+       &\geq \frac{ab-a-b+1 - b(a-1)}{a} \\
+       &= \frac{ab-a-b+1 - ab + b}{a} \\
+       &= \frac{1-a}{a} \\
+       &= -1 + \frac{1}{a}
+\end{align*}But because $x_1$ is an integer, it must be that $x_1\geq 0$. Thus, there are nonnegative integer solutions to $ax+by=n$. \qed
+
+\textbf{Corollary:} From the above two propositions, the largest integer $c$ such that there are no nonnegative integer solutions to $ax+by=c$ is $ab-a-b$. That is, for all $n\geq ab-a-b+1$, there are nonnegative integer solutions to $ax+by=n$, and for $n=ab-a-b$, there are no nonnegative integer solutions to $ax+by=n$. 
+
+\textbf{Proof:} Compose the previous 2 proofs.
+
+\underline{Example:} The 2026 Postage Stamp Problem uses values of: \begin{align*}
+    \begin{tabular}{c|c}
+        \text{Stamp} & \text{Stamp Value}\\
+        \hline
+        \text{Regular} & 78\\
+        \text{Postcard} & 61
+    \end{tabular}
+\end{align*}
+
+First, we must have that they are coprime. Since $78=2\cdot 3\cdot 13$ and $61$ is prime, they are coprime.
+
+Then, under this problem, the largest amount of postage that cannot be made is $78\cdot 61 - 78 - 61 = 4619$. For all amounts of postage greater than 4619, there are nonnegative integer solutions to $78x+61y=n$.
+
+\underline{Example:} Find the smallest for stamp values of $6, 8$. These two are not coprime, so we will divide the equation by their gcd (2). Then, we find the largest amount of postage that cannot be made with stamps of values $3,4$, which is $3\cdot 4 - 3 - 4 = 5$. Then, we multiply this by the gcd (2) to get $10$ as the largest amount of postage that cannot be made with stamps of values $6,8$. For all amounts of postage greater than 10, there are nonnegative integer solutions to $6x+8y=n$.
+
+\subsection{QUIZ 1 CUTOFF HERE}
+
+\subsection{Appendix A.3 - Well-Ordering Principle and Mathematical Induction}
+
+\textbf{Theorem (Well-Ordering Principle):} Every nonempty subset of $\mathbb{N}$ (the positive integers) has a least element.
+
+\underline{Note:} This only applies to the naturals and not the integers, since the integers can be negative and thus have no least element. Most notably the proof of the well-ordering principle uses the principle of succession, which is a property of the naturals specifically due to Peano succession axioms. You can also prove this utilizing the completeness of the reals, but once again this requires the existence of integers specifically in a half open interval.
+
+Specifically it requires the completeness property, showing that all bottom-bounded subsets of the reals have a least upper bound, and because of the transitivity of $\subseteq$, for $A\subseteq \mathbb{N}$, $A$ has an infinum called $a$, and then $(n-1,n]$ must contain an element of $A$ for all $n\geq a$, so there must be some least element of $A$.
+
+\underline{Note:} We will use this to give a non-constructive proof of the following theorem:
+
+\textbf{Theorem (2.12):} Let $a,b$ be integers, not both 0 and let $d=\gcd(a,b)$. Then, there exist integers $x,y$ such that $ax+by=d$.
+
+\underline{Note:} Last time, we proved this using the Extended Euclidean Algorithm, which is a constructive proof. This time, we will give a non-constructive proof using the Well-Ordering Principle.
+
+\textbf{Proof:} Let $S=\{ ax+by : x,y\in \zz, ax+by>0 \}$ be the set of all positive linear combinations of $a$ and $b$. Since $a,b$ are not both 0, there exists some positive linear combination of $a$ and $b$, so $S$ is nonempty. By the Well-Ordering Principle, $S$ has a least element, say $d$. We will show that $d=\gcd(a,b)$.
+
+First, we show that $d|a$ and $d|b$. By the division algorithm, we can write $a=dq+r$ for some integers $q,r$ with $0\leq r<d$. Then, \begin{align*}
+    r &= a - dq \\
+      &= a - q(ax_0 + by_0) \\
+      &= a(1-qx_0) + b(-qy_0)
+\end{align*}where $x_0,y_0$ are integers such that $d=ax_0+by_0$. Thus, $r$ is a linear combination of $a$ and $b$. If $r>0$, then $r\in S$ and $r<d$, contradicting the minimality of $d$. Thus, $r=0$ and so $d|a$. Similarly, we can show that $d|b$.
+
+\begin{aside}
+Professor starts a contradiction by stating suppose $r\neq 0$ and then doing the above, instead of taking cases. 
+\end{aside}
+
+Next, we show that if $e$ is any common divisor of $a$ and $b$, then $e|d$. Since $e|a$ and $e|b$, it follows that $e|ax+by$ for any integers $x,y$. In particular, since $d=ax_0+by_0$, it follows that $e|d$. Since $d>0$, $e\leq d$. Thus, $d$ is the greatest common divisor of $a$ and $b$. \qed
+
+\underline{Note:} This argument shows that $\gcd(a,b)$ is the least positive linear combination of $a$ and $b$.
+
+\underline{Remark:} Let $d=\gcd(a,b)$. 
+
 \end{document}
