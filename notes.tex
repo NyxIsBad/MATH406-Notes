@@ -714,4 +714,49 @@ Additionally, we can express them from a logic perspective:\begin{itemize}
 \end{align*}which is a product of primes. Thus, by the principle of strong induction, every integer $n\geq 2$ can be written as a product of primes. \qed
 \end{itemize}
 
+\section{Lecture 11}
+
+Recall last time we did 3 main things; the well ordering principle, induction, and strong induction. 
+
+All 3 of the above are equivalent to each other. This potentially means that you ould rewrite one proof using the others!
+
+\subsection{4.1 0 The Starting Point (of Unique Factorizations)}
+
+\textbf{Theorem (4.1):} Let $p$ be a prime and $a,b$ be integers such that $p|ab$. Then, $p|a$ or $p|b$.
+
+\textbf{Proof:} We proved this above in the euclidean algorithm process
+
+\textbf{Corollary (4.2):} Let $p$ be a prime and $a_1,a_2,\ldots, a_k$ be integers such that $p|a_1a_2\cdots a_k$. Then, there exists some $i$ such that $p|a_i$.
+
+\textbf{Proof:} We use induction on $k$.
+
+\underline{Base:} If $k=2$ then this is just the previous theorem, so the base case holds. If $k=1$, then $p|a_1$ so the base case holds.
+
+\underline{IS:} Now, suppose that for some $k\geq 2$, if $p|a_1a_2\cdots a_k$ then there exists some $i$ such that $p|a_i$. We want to show that if $p|a_1a_2\cdots a_{k+1}$ then there exists some $i$ such that $p|a_i$. If $p|a_{k+1}$, then we are done. If not, then since $p|a_1a_2\cdots a_{k+1}$ and $p\nmid a_{k+1}$, it follows that $p|(a_1a_2\cdots a_k)$ by bilinearity of divisibility. By the induction hypothesis, there exists some $i$ such that $p|a_i$. 
+\qed
+
+\subsection{4.2 - The Fundamental Theorem of Arithmetic}
+
+\textbf{Theorem:} Every integer $n\geq 2$ can be written as a product of primes in a unique way, up to the order of the factors. That is, if \begin{align*}
+    n &= p_1p_2\cdots p_k \\
+      &= q_1q_2\cdots q_m
+\end{align*}where $p_i,q_j$ are primes, then $k=m$ and there exists a permutation $\sigma$ of $\{1,2,\ldots, k\}$ such that $p_i=q_{\sigma(i)}$ for all $i$.
+
+\textbf{Proof:} We already proved the existence of prime factorizations. 
+
+\underline{Uniqueness:} First, observe that if $p$P is prime, then $p=p$ is a prime factorization. This is the only way to write $p$ as a product of primes, since if \begin{align*}
+    p=p_1p_2\cdots p_k
+\end{align*}is a prime factorization, then $p|p_1p_2\cdots p_k$, so there exists some $i$ such that $p|p_i$. Since $p_i$ is prime, it follows that $p=p_i$. Thus, the only prime factorization of a prime is itself.
+
+Now, let's use strong induction on $n$. \begin{itemize}
+    \item \underline{Base Case:} at $n=2$, $2$ is prime, so the only prime factorization of $2$ is $2$ itself, so the base case holds.
+    \item \underline{Inductive Step:} Suppose $k$ is a number such that all $n$ such that $2\leq n\leq k$ have a unique prime factorization. Suppose $k+1$ has two prime factorizations \begin{align*}
+        p_1p_2\cdots p_m &= q_1q_2\cdots q_n
+    \end{align*}
+    Then, $p_1|(q_1q_2\cdots q_n)$, so there exists some $i$ such that $p_1|q_i$. Since $q_i$ is prime, it follows that $p_1=q_i$. We can cancel $p_1$ and $q_i$ from both sides to get \begin{align*}
+        p_2\cdots p_m &= q_1\cdots q_{i-1} q_{i+1}\cdots q_n
+    \end{align*}
+    By the induction hypothesis, the remaining factors must also be equal up to a permutation. Thus, the prime factorization of $k+1$ is unique.
+\end{itemize}
+
 \end{document}
