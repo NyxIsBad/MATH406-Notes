@@ -759,4 +759,81 @@ Now, let's use strong induction on $n$. \begin{itemize}
     By the induction hypothesis, the remaining factors must also be equal up to a permutation. Thus, the prime factorization of $k+1$ is unique.
 \end{itemize}
 
+\subsection{EXAM 1 CUTOFF HERE}
+
+\section{Lecture 12}
+
+Exam on Friday, the 27th. Covers up to Fundamental Theorem of Arithmetic.
+
+HW due Wednesday
+
+\underline{Note:} Often, we will write the prime factorization of an integer $n$ as \begin{align*}
+    n&=p_1^{a_1}p_2^{a_2}\dots p_k^{a_k}
+\end{align*}where all $p_i$ are unique, and $a_i$ are integers strictly greater than zero (eg $\geq 1$)
+
+Sometimes, we'll write a prime factorizatin of an integer $n\geq 2$ as follows:\begin{align*}
+    2^{n_2}3^{n_3}5^{n_5}\dots
+\end{align*}which resembles an "infinite product" where each prime shows up. Then, each $n_i$ \textit{can} be zero. Additionally we must then have that only finitely many $n_p$ are nonzero. 
+
+\underline{Example:} We know that $20=2^2\cdot 5$. This is equal to \begin{align*}
+    2^2\cdot 3^0 \cdot 5^1 \cdot 7^0 \dots
+\end{align*}
+
+In this case $n_2=2, n_3=0, n_5=1, n_p=0$ for primes $p\geq 7$. 
+
+\underline{Remark:} We can write $n=1$ this way too, with $n_p=0$ for all $p$. 
+
+\textbf{Proposition (4.4):} Let $a,b$ be positive integers with prime factorizations \begin{align*}
+    a=2^{a_2}3^{a_3}5^{a_5}\dots \quad b=2^{b_2}3^{b_3}5^{b_5}\dots
+\end{align*}
+Then, $a|b$ iff $a_p\leq b_p$ for every prime $p$. 
+
+\textbf{Proof:} $\Rightarrow$ If $a|b$ then $b=ac$ for some integer $c\geq 1$. Write $c=2^{c_2}3^{c_3}5^{c_5}\dots$ Then, \begin{align*}
+    b &= ac \\
+      &= (2^{a_2}3^{a_3}5^{a_5}\dots)(2^{c_2}3^{c_3}5^{c_5}\dots) \\
+      &= 2^{a_2+c_2}3^{a_3+c_3}5^{a_5+c_5}\dots
+\end{align*}By the fundamental theorem of arithmetic, the prime factorization of $b$ is unique, so $b_p=a_p+c_p$ for every prime $p$. Since $c_p\geq 0$, it follows that $a_p\leq b_p$ for every prime $p$.
+
+$\Leftarrow$ If $a_p\leq b_p$ for every prime $p$, then $b_p-a_p\geq 0$, and we can write $b=2^{b_2}3^{b_3}5^{b_5}\dots$ as \begin{align*}
+    b &= 2^{a_2}3^{a_3}5^{a_5}\dots (2^{b_2-a_2}3^{b_3-a_3}5^{b_5-a_5}\dots) \\
+      &= a(2^{b_2-a_2}3^{b_3-a_3}5^{b_5-a_5}\dots)
+\end{align*}Since only finitely many $a_p, b_p$ are nonzero, it follows that only finitely many $b_p-a_p$ are nonzero, so $2^{b_2-a_2}3^{b_3-a_3}5^{b_5-a_5}\dots$ is a well defined integer. Thus, $a|b$. \qed
+
+\textbf{Proposition (4.5):} Let $a=2^{a_2}3^{a_3}5^{a_5}\dots$ and $b=2^{b_2}3^{b_3}5^{b_5}\dots$ be positive integers. Then, let $d_p=\min(a_p,b_p)$ for every prime $p$. Then, $\gcd(a,b)=2^{d_2}3^{d_3}5^{d_5}\dots$
+
+\underline{Example:} If $a=720=2^4\cdot 3^2 \cdot 5$ and $b=6400=2^2\cdot 5^2 \cdot 3^2\cdot 7=2^2\cdot 3^2\cdot 5^2\cdot 7$
+
+Then, $d_2=2, d_3=2, d_5=1, d_7=0$, and all other $d_p=0$, so $\gcd(a,b)=2^2\cdot 3^2 \cdot 5 = 180$.
+
+\textbf{Proof:} Let $d_p=\min(a_p,b_p)$ for every prime $p$, and let $d=2^{d_2}3^{d_3}5^{d_5}\dots$. We will show that $d=\gcd(a,b)$. By definition, $d_p\leq a_p$, and $d_p\leq b_p$ for every prime $p$, so by the previous proposition, $d|a$ and $d|b$. Thus, it is a common divisor. 
+
+Let $e$ be an arbitrary common divisor. Then, $e=2^{e_2}3^{e_3}5^{e_5}\dots$ for some nonnegative integers $e_p$. Since $e|a$ and $e|b$, it follows by the previous proposition that $e_p\leq a_p$ and $e_p\leq b_p$ for every prime $p$. 
+
+This implies that $e_p\leq \min(a_p,b_p)=d_p$ for every prime $p$, so by the previous proposition, $e|d$. Additionally, by def of divisibility $e\leq d$. Thus, $d$ is the greatest common divisor of $a$ and $b$. \qed
+
+\newcommand*{\lcm}{\mathrm{lcm}}
+
+\textbf{Definition (LCM):} The least common multiple of two positive integers $a,b$ is the smallest positive integer $m$ such that $a|m$ and $b|m$. We denote this as $\lcm(a,b)$.
+
+\textbf{Proposition (4.5):} (continued) If $a=2^{a_2}3^{a_3}5^{a_5}\dots$ and $b=2^{b_2}3^{b_3}5^{b_5}\dots$ are positive integers, then let $m_p=\max(a_p,b_p)$ for every prime $p$. Then, $\lcm(a,b)=2^{m_2}3^{m_3}5^{m_5}\dots$
+
+\textbf{Proof:} Let $m_p=\max(a_p,b_p)$ for every prime $p$, and let $m=2^{m_2}3^{m_3}5^{m_5}\dots$. We will show that $m=\lcm(a,b)$. By definition, $m_p\geq a_p$ and $m_p\geq b_p$ for every prime $p$, so by the previous proposition, $a|m$ and $b|m$. Thus, it is a common multiple.
+
+\textbf{Corollary:} $\gcd(a,b)\cdot \lcm(a,b) = a\cdot b$ for all positive integers $a,b$.
+
+\textbf{Proof:} Let $d_p=\min(a_p,b_p)$ and $m_p=\max(a_p,b_p)$ for every prime $p$. Then, \begin{align*}
+    \gcd(a,b)\cdot \lcm(a,b) &= (2^{d_2}3^{d_3}5^{d_5}\dots)(2^{m_2}3^{m_3}5^{m_5}\dots) \\
+                              &= 2^{d_2+m_2}3^{d_3+m_3}5^{d_5+m_5}\dots
+\end{align*}Since $d_p=\min(a_p,b_p)$ and $m_p=\max(a_p,b_p)$, it follows that $d_p+m_p=a_p+b_p$ for every prime $p$. Thus, \begin{align*}
+    \gcd(a,b)\cdot \lcm(a,b) &= 2^{a_2+b_2}3^{a_3+b_3}5^{a_5+b_5}\dots \\
+                              &= (2^{a_2}3^{a_3}5^{a_5}\dots)(2^{b_2}3^{b_3}5^{b_5}\dots) \\
+                              &= a\cdot b
+\end{align*}\qed
+
+\underline{Note:} This also implies that \begin{align*}
+    \lcm(a,b) = \frac{a\cdot b}{\gcd(a,b)}
+\end{align*}
+
+\underline{Example:} (of Prop): If $a=720=2^4\cdot 3^2 \cdot 5$ and $b=6400=2^2\cdot 5^2 \cdot 3^2\cdot 7=2^2\cdot 3^2\cdot 5^2\cdot 7$, then $\lcm(a,b)=2^{4}3^{2}5^{2}\cdot 7 = 25200$.
+
 \end{document}
