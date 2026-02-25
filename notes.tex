@@ -720,7 +720,7 @@ Recall last time we did 3 main things; the well ordering principle, induction, a
 
 All 3 of the above are equivalent to each other. This potentially means that you ould rewrite one proof using the others!
 
-\subsection{4.1 0 The Starting Point (of Unique Factorizations)}
+\subsection{4.1 - The Starting Point (of Unique Factorizations)}
 
 \textbf{Theorem (4.1):} Let $p$ be a prime and $a,b$ be integers such that $p|ab$. Then, $p|a$ or $p|b$.
 
@@ -835,5 +835,109 @@ This implies that $e_p\leq \min(a_p,b_p)=d_p$ for every prime $p$, so by the pre
 \end{align*}
 
 \underline{Example:} (of Prop): If $a=720=2^4\cdot 3^2 \cdot 5$ and $b=6400=2^2\cdot 5^2 \cdot 3^2\cdot 7=2^2\cdot 3^2\cdot 5^2\cdot 7$, then $\lcm(a,b)=2^{4}3^{2}5^{2}\cdot 7 = 25200$.
+
+\section{Lecture 13}
+
+\subsection{We forgot a thing from Chapter 2:}
+
+Apparently we forgot to prove a thing in chapter 2:
+
+\textbf{Proposition (2.17):} Let $a,b,c$ be integers with $\gcd(a,b)=1$. If $a|c,b|c$, then $ab|c$.
+
+\textbf{Proof:} Since $a|c, b|c$, we have that $c=ae, c=bf$ for integers $e,f$. Since $\gcd(a,b)=1$, there are integers $x,y$ such that \begin{align*}
+    1=ax+by
+\end{align*}
+
+Multiplying by $c$ gives \begin{align*}
+    c &= acx + bcy \\
+      &= a(bf)x + b(ae)y \\
+      &= ab(fx + ey)
+\end{align*}
+Thus, $ab|c$. \qed
+
+\subsection{5.1 - A Puzzle}
+
+\textbf{Proposition (5.1):} Let $k\geq 2$ be an integer, let $m$ be a positive integer. Then, $m$ is a $k$-th power of an integer iff all exponents in the prime factorization of $m$ are divisible by $k$. That is, if \begin{align*}
+    m=2^{m_2}3^{m_3}5^{m_5}\dots
+\end{align*}then $m$ is a $k$-th power of an integer iff $k|m_p$ for every prime $p$.
+
+\textbf{Proof:} $\Rightarrow$ If $m$ is a $k$-th power of an integer, then there exists some integer $n$ such that $m=n^k$. Write $n=2^{n_2}3^{n_3}5^{n_5}\dots$. Then, \begin{align*}
+    m &= n^k \\
+      &= (2^{n_2}3^{n_3}5^{n_5}\dots)^k \\
+      &= 2^{kn_2}3^{kn_3}5^{kn_5}\dots
+\end{align*}By the fundamental theorem of arithmetic, the prime factorization of $m$ is unique, so $m_p=kn_p$ for every prime $p$. Since $n_p$ is an integer, it follows that $k|m_p$ for every prime $p$.
+
+$\Leftarrow$ If $k|m_p$ for every prime $p$, then there exist integers $n_p$ such that $m_p=kn_p$ for every prime $p$. Then, \begin{align*}
+    m &= 2^{m_2}3^{m_3}5^{m_5}\dots \\
+      &= 2^{kn_2}3^{kn_3}5^{kn_5}\dots \\
+      &= (2^{n_2}3^{n_3}5^{n_5}\dots)^k
+\end{align*}Thus, $m$ is a $k$-th power of an integer. \qed
+
+\underline{Puzzle:} We got a limerick puzzle:
+
+\begin{center}
+    There was a young lady named Chris,\\
+    who, when asked her age, answered this\\
+    Two-thirds of its square,\\
+    Is a cube, I declare.\\
+    Now what was the age of the miss?
+\end{center}
+
+Let $A$ be her age, eg \begin{align*}
+    A=2^{a_1}3^{a_3}5^{a_5}\dots
+\end{align*}
+
+Two thirds of its square is \begin{align*}
+    \frac{2}{3}A^2 &= \frac{2}{3}(2^{2a_2}3^{2a_3}5^{2a_5}\dots) \\
+    &= 2^{2a_2+1}3^{2a_3-1}5^{2a_5}\dots
+\end{align*}
+
+Then, this must be a perfect cube, eg $2a_2+1$ must be divisible by 3, $2a_3-1$ must be divisible by 3, and $2a_i$ where $i\geq 5$ must be divisible by 3.
+
+One possibility is $a_2=1, a_3=2, a_i=0$. This gives $A=2^1\cdot 3^2=18$. This is probably the most reasonable answer
+
+Other possibilities? We have $3|2a_2+1, 3|2a_3-1, 3|2a_i$ for $i\geq 5$. Since $3|2a_i$, it follows that $3|a_i$ because the gcd of 3 and 2 is 1. 
+
+Thus, $a_i=3k_i$ for some integer $k_i$.
+
+Then, $3|(2a_2+1)$ implies that $2a_2+1=3k_2$ for some $k_2$. Note this implies $k_2$ must be odd! We can then write $k_2=2m_2+1$ for some integer $m_2$. Then, $a_2=3m_2+1$.
+
+Similarly, $3|(2a_3-1)$ implies that $2a_3-1=3k_3$ for some integer $k_3$. Note this implies $k_3$ must be odd! We can then write $k_3=2m_3+1$ for some integer $m_3$. Then, $a_3=3m_3+2$.
+
+Then, \begin{align*}
+    A&=2^{3m_2+1}3^{3m_3+2}\prod_{i\geq 5} p_i^{3k_i}
+    &=18(2^{m_2}3^{m_3}\prod_{i\geq 5} p_i^{k_i})^3
+\end{align*} so the complete solution set is $18M^3$ where $M$ is an integer. The next smallest age, in fact, is 144. She could also be 1152 years old!
+
+\subsection{5.2 - Irrationality Proofs}
+
+\textbf{Definition (Rational):} $r\in \rr$ is rational if $\exists a,b\in \zz$ st $b\neq 0$ and $r=\frac{a}{b}$.
+
+\textbf{Definition (Irrational):} $r\in \rr$ is irrational if it is not rational.
+
+\newcommand*{\qq}{\mathbb{Q}}
+
+\begin{aside}
+The field of rational numbers is denoted $\qq$, and the field of irrational numbers is $\rr\setminus \qq$.
+
+Also, because it is a field, we have that $\qq$ is closed under addition, subtraction, multiplication, and division (except by zero). 
+
+Further, the field is dense, eg for any two rational numbers $r_1<r_2$, there exists a rational number $r$ such that $r_1<r<r_2$. In fact, there are infinitely many rational numbers between any two rational numbers.
+
+\textbf{Proof:} Let $r_1=\frac{a}{b}, r_2=\frac{c}{d}$ where $a,b,c,d\in \zz$ and $b,d\neq 0$. Then, since $r_1<r_2$, it follows that $ad<bc$ (just cross multiply to see this).
+
+Then, let $r=\frac{a+c}{b+d}$. We will show that $r_1<r<r_2$. First, \begin{align*}
+    r-r_1 &= \frac{a+c}{b+d} - \frac{a}{b} \\
+          &= \frac{(a+c)b - a(b+d)}{b(b+d)} \\
+          &= \frac{cb - ad}{b(b+d)}
+\end{align*}Since $ad<bc$, it follows that $cb-ad>0$, so $r-r_1>0$, so $r>r_1$. Next, \begin{align*}
+    r_2-r &= \frac{c}{d} - \frac{a+c}{b+d} \\
+          &= \frac{c(b+d) - (a+c)d}{d(b+d)} \\
+          &= \frac{cb - ad}{d(b+d)}
+\end{align*}Since $ad<bc$, it follows that $cb-ad>0$, so $r_2-r>0$, so $r<r_2$. Thus, there exists a rational number $r$ such that $r_1<r<r_2$. \qed
+
+Any terminating decimal is rational.
+
+\end{aside}
 
 \end{document}
