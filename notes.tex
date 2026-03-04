@@ -940,4 +940,144 @@ Any terminating decimal is rational.
 
 \end{aside}
 
+\section{Lecture 14}
+
+\textbf{Definition (Rational):} If $r=\frac{a}{b}$, where $a,b$ are integers with $b\neq 0$, then $r$ is rational.
+
+\underline{Notation:} \begin{itemize}
+    \item $\zz$ is the set of all integers
+    \item $\qq$ is the set of all rational numbers
+    \item $\rr$ is the set of all real numbers
+    \item $\rr\setminus \qq$ is the set of all irrational numbers
+\end{itemize}
+
+\textbf{Theorem:} If $r\in \qq$, we can always write \begin{align*}
+    r=\frac{a}{b}
+\end{align*}where $a,b$ are integers with $b>0$ and $\gcd(a,b)=1$.
+
+\textbf{Proof:} Given any $r=\frac{a}{b}$ with $\gcd(a,b)=d$. We can write \begin{align*}
+    r&=\frac{a}{b} \\
+     &= \frac{a/d}{b/d}
+\end{align*}and note that $a/d, b/d$ are integers with $b/d>0$ and $\gcd(a/d,b/d)=1$. \qed
+
+\textbf{Theorem (5.2):} $\sqrt{2}$ is irrational.
+
+\textbf{Proof:} On the contrary suppose it's rational. Then \begin{align*}
+    \sqrt{2}&=\frac{a}{b}\\
+    2&=\frac{a^2}{b^2} \\
+    a^2&=2b^2
+\end{align*}This shows that $2|a^2$. Since $2$ is prime, it follows that $2|a$. Thus, $a=2c$ for some $c\in \zz$. Then, \begin{align*}
+    2b^2&=a^2 \\
+         &= (2c)^2 \\
+         &= 4c^2 \\
+    b^2&=2c^2
+\end{align*}which implies that $2|b^2$, so $2|b$. Thus, $a$ and $b$ are both even, which contradicts the fact that $\gcd(a,b)=1$. Thus, $\sqrt{2}$ is irrational. \qed
+
+\textbf{Theorem (5.3):} Let $k\geq 2$ be an integer. Let $n$ be a positive integer that is not a $k$-th power of an integer. Then, $\sqrt[k]{n}$ is irrational.
+
+\textbf{Proof:} We will show the contrapositive, 
+
+\begin{aside}
+The contrapositive states: If $\sqrt[k]{n}$ is rational, then $n$ is a $k$-th power of an integer.
+\end{aside}
+
+Let $\sqrt[k]{n}=\frac{a}{b}$ where $a,b$ are integers with $b>0$ and $\gcd(a,b)=1$. Then, \begin{align*}
+    n&=\left(\frac{a}{b}\right)^k \\
+     &= \frac{a^k}{b^k} \\
+     &= 2^{ka_2}3^{ka_3}5^{ka_5}\dots
+\end{align*}By the fundamental theorem of arithmetic, the prime factorization of $n$ is unique, so $n=2^{ka_2}3^{ka_3}5^{ka_5}\dots$. By the previous proposition, $n$ is a $k$-th power of an integer. \qed
+
+\underline{Example:} $\sqrt[3]{9}, \sqrt[5]{8}$ are irrational. $2=\sqrt[4]{16}$ is rational. 
+
+\subsection{5.3 - The Rational Root Theorem}
+
+\textbf{Theorem (5.4 - Rational Root Theorem):} Let $P(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots + a_1x + a_0$ be a polynomial with integer coefficients, where $a_n\neq 0, a_0\neq 0$. If $r=\frac{u}{v}$ is a reduced rational number such that $P(r)=0$, then $u|a_0$ and $v|a_n$.
+
+\textbf{Proof:} Since $P(r)=0$, we have that \begin{align*}
+    0&=a_n(\frac{u}{v})^n + a_{n-1}(\frac{u}{v})^{n-1} + \cdots + a_1(\frac{u}{v}) + a_0 \\
+    \implies \\
+    a_nu^n+a_{n-1}u^{n-1}v + \cdots + a_1uv^{n-1} + a_0v^n &= 0 \\
+\end{align*}by multiplying both sides by $v^n$. Then, \begin{align*}
+    a_0v^n&=-(a_nu^n+a_{n-1}u^{n-1}v + \cdots + a_1uv^{n-1}) \\
+           &=-u(a_nu^{n-1}+a_{n-1}u^{n-2}v + \cdots + a_1v^{n-1})
+\end{align*}Since $u$ divides the right hand side, it must divide the left hand side. Since $\gcd(u,v)=1$, it follows that $u|a_0$. Similarly, \begin{align*}
+    a_nv^n&=-(a_{n-1}u^{n-1}v + \cdots + a_1uv^{n-1} + a_0v^n) \\
+           &=-v(a_{n-1}u^{n-1} + \cdots + a_1u v^{n-2} + a_0v^{n-1})
+\end{align*}Since $v$ divides the right hand side, it must divide the left hand side. Since $\gcd(u,v)=1$, it follows that $v|a_n$. \qed
+
+\underline{Example:} Use the fact that \begin{align*}
+    p(x)=2x^3+x^2-9
+\end{align*}has a rational root to find all of its complex roots. If $r=\frac{u}{v}$ is a rational root, then $u|-9$ and $v|2$. Thus, $u=\pm 1,\pm 3, \pm 9$ and $v=\pm 1, \pm 2$. This implies the possible roots as \begin{align*}
+    \pm 1,\pm 3, \pm 9, \pm \frac{1}{2}, \pm \frac{3}{2}, \pm \frac{9}{2}
+\end{align*}Trying them all so we can see which one is a root, we see that $r=\frac{3}{2}$ is a root. Thus, $x-\frac{3}{2}$ is a factor, and \begin{align*}
+    p(x) &= (x-\frac{3}{2})(2x^2+4x+6) \\
+         &= 2(x-\frac{3}{2})(x^2+2x+3)
+\end{align*}Then, we can use the quadratic formula to find the roots of the remaining quadratic. This is a way to factor a higher coefficient polynomial, basically!
+
+\section{Lecture 15}
+
+Recall last time we proved the rational root theorem, which states that if $P(x)=a_nx^n+a_{n-1}x^{n-1}+\cdots + a_1x + a_0$ is a polynomial with integer coefficients, where $a_n\neq 0, a_0\neq 0$, and $r=\frac{u}{v}$ is a reduced rational number such that $P(r)=0$, then $u|a_0$ and $v|a_n$.
+
+Some applications
+
+\underline{Example:} $\sqrt{2}$ is irrational. 
+
+$\sqrt{2}$ is a root of the polynomial $p(x)=x^2-2$. If $\sqrt{2}$ were rational, then by the rational root theorem, the numerator of $\sqrt{2}$ in lowest terms would divide $-2$, and the denominator would divide $1$. Thus, the only possible rational roots are $\pm 1, \pm 2$. None of these are roots of $p(x)$, so $\sqrt{2}$ is irrational.
+
+\underline{Example:} $\sqrt[k]{n}$ is irrational unless $n$ is a $k$-th power of an integer.
+
+$\sqrt[k]{n}$ is a root of the polynomial $p(x)=x^k-n$. If $\sqrt[k]{n}$ were rational, then by the rational root theorem, the numerator of $\sqrt[k]{n}$ in lowest terms would divide $-n$, and the denominator would divide $1$. Thus, the only possible rational roots are $\pm 1, \pm n$. None of these are roots of $p(x)$ unless $n$ is a $k$-th power of an integer, so $\sqrt[k]{n}$ is irrational unless $n$ is a $k$-th power of an integer.
+
+\underline{Example:} Take $p(x)=78x^3-574x^2+310x-45$. Say we know that the roots are approximately $0.26015\dots$, $0.3451\dots$, $6.40651\dots$. Are any of them rational?
+
+Well, if any of them is rational, then the denominator is a divisor of 78. So if we multiply by 78, the root will become an integer. If we do that here, we get $20.2918, 27.0000, 499.7082$. Thus, $27$ is an integer, so $0.3451\dots$ is a rational root. We can then factor the polynomial with it. 
+
+\subsection{5.4 - Pythagorean Triples}
+
+\textbf{Definition (Pythagorean Triple):} A pythagorean triple is a triple of positive integers $(a,b,c)$ such that $a^2+b^2=c^2$, eg integer solutions to the pythagorean theorem. 
+
+For instance, $(3,4,5)$ is a pythagorean triple since $3^2+4^2=5^2$. Also, $(5,12,13)$ is a pythagorean triple since $5^2+12^2=13^2$. Also, $(8,15,17)$ is a pythagorean triple since $8^2+15^2=17^2$.
+
+Multiples too, eg $(6,8,10)$. 
+
+\underline{Notes:} \begin{itemize}
+    \item If $(a,b,c)$ is a pythagorean triple, then so is $(ka, kb, kc)$ for any positive integer $k$.
+    \item If $(a,b,c)$ is a pythagorean triple, and $d=\gcd(a,b,c)$, then $\left(\frac{a}{d}, \frac{b}{d}, \frac{c}{d}\right)$ is a pythagorean triple.
+\end{itemize}
+
+\textbf{Definition (Primitive Pythagorean Triple):} A \underline{primitive} pythagorean triple is a pythagorean triple $(a,b,c)$ such that $\gcd(a,b,c)=1$.
+
+\underline{Question:} Are there infinitely many primitive pythagorean triples? And can we generate them? Turns out the answer is yes for both
+
+\textbf{Fibonacci's Method:} One way to do so: \begin{itemize}
+    \item Start with any odd integer $a$. 
+    \item Square it, and then write it as a sum of two consecutive integer. That is, write $a^2=k+(k+1)$ for some integer $k$.
+    \item Then, we have that $a^2=k^2+(k+1)^2-(k^2+(k+1)^2-2k(k+1))=k^2+(k+1)^2-2k(k+1)=k^2+(k+1)^2-2k^2-2k=k^2+(k+1)^2-2k^2-2k=(k+1)^2-k^2$. Thus, $a^2=(k+1)^2-k^2$, so $(a, k, k+1)$ is a primitive pythagorean triple. (clear since the integers are consecutive so the gcd is 1)
+\end{itemize}
+
+\underline{Example:} \begin{itemize}
+    \item $a=3$ yields $a^2=9=4+5$, so $k=4$, so we get the pythagorean triple $(3,4,5)$.
+    \item $a=5$ yields $a^2=25=12+13$, so $k=12$, so we get the pythagorean triple $(5,12,13)$.
+    \item $a=7$ yields $a^2=49=24+25$, so $k=24$, so we get the pythagorean triple $(7,24,25)$.
+\end{itemize}
+
+\textbf{Another Construction:} \begin{itemize}
+    \item Start with a multiple of 4, eg $a=4k$
+    \item Square it to $16k^2$ and then divide by 4 to get $4k^2$.
+    \item Take the two odds on either side of $4k^2$, which are $4k^2-1$ and $4k^2+1$. Then, this is a primitive pythagorean triple since the three numbers are consecutive odd integers, so the gcd is 1.
+\end{itemize}
+
+\underline{Example:} \begin{itemize}
+    \item $a=4$ yields $a^2=16$, dividing by 4 gives $4$, so we take the two odds on either side of $4$, which are $3$ and $5$, so we get the pythagorean triple $(4,3,5)$.
+    \item $a=8$ yields $a^2=64$, dividing by 4 gives $16$, so we take the two odds on either side of $16$, which are $15$ and $17$, so we get the pythagorean triple $(8,15,17)$.
+\end{itemize}
+
+\textbf{Theorem (5.5):} Let $(a,b,c)$ be a primitive pythagorean triple. Then WLOG $c$ is odd and exactly one of $a,b$ is even. WLOG say $b$ is even. Then, there exists rprime integers $m<n$, one even, one odd, such that \begin{align*}
+    a=n^2-m^2, b=2mn, c=n^2+m^2
+\end{align*}Further any triple of this form is a primitive pythagorean triple.
+
+\underline{Examples:} \begin{itemize}
+    \item $n=3, m=2$ gives $a=9-4, b=2\cdot 3\cdot 2, c=9+4$, so we get the pythagorean triple $(5,12,13)$.
+\end{itemize}
+
 \end{document}
