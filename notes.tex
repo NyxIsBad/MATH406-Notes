@@ -1080,4 +1080,301 @@ Multiples too, eg $(6,8,10)$.
     \item $n=3, m=2$ gives $a=9-4, b=2\cdot 3\cdot 2, c=9+4$, so we get the pythagorean triple $(5,12,13)$.
 \end{itemize}
 
+\section{Lecture 16}
+
+We will prove 5.5. First, we will prove some related lemmas.
+
+\textbf{Lemma (5.6):} Let $k\geq 2$ and let $a,b$ be rprime in $\zz$ such that $ab$ is a $k$-th power of an integer. Then, $a$ and $b$ are both $k$-th powers of integers.
+
+\textbf{Proof:} Write the prime factorizations \begin{align*}
+    a=p_1^{r_1}p_2^{r_2}\dots p_m^{r_m}, b=q_1^{s_1}q_2^{s_2}\dots q_n^{s_n}
+\end{align*}Since $a,b$ are rprime, $p_i\neq q_j$ for all $i,j$. Then, \begin{align*}
+    ab&=p_1^{r_1}p_2^{r_2}\dots p_m^{r_m}q_1^{s_1}q_2^{s_2}\dots q_n^{s_n}
+\end{align*}is the prime factorization of ab into distinct primes. Since $ab$ is a $k$-th power of an integer, all exponents are multiples of $k$. Thus, $k|r_i$ for all $i$, and $k|s_j$ for all $j$. Thus, $a$ and $b$ are both $k$-th powers of integers. \qed
+
+\textbf{Lemma (5.7):} \begin{enumerate}
+    \item The square of an even number is divisible by 4
+    \item The square of an odd number is one more than a multiple of 8
+\end{enumerate}
+
+\textbf{Proof:} \begin{enumerate}
+    \item Let $a=2k$ for some integer $k$. Then, $a^2=4k^2$, which is divisible by 4.
+    \item Let $a=2k+1$ for some integer $k$. Then, $a^2=(2k+1)^2=4k^2+4k+1=4k(k+1)+1$. Since one of $k,k+1$ is even, it follows that $4k(k+1)$ is divisible by 8. Thus, $a^2$ is one more than a multiple of 8.
+\end{enumerate}\qed
+
+\underline{Recall:}
+
+\textbf{Theorem (5.5):} Let $(a,b,c)$ be a primitive pythagorean triple. Then WLOG $c$ is odd and exactly one of $a,b$ is even. WLOG say $b$ is even. Then, there exists rprime integers $m<n$, one even, one odd, such that \begin{align*}
+    a=n^2-m^2, b=2mn, c=n^2+m^2
+\end{align*}Further any triple of this form is a primitive pythagorean triple.
+
+\textbf{Proof:} Let's start by proving the last assertion. That is, suppose $a^2=n^2-m^2, b=2mn, c=n^2+m^2$ for some rprime integers $m<n$, one even, one odd. Then, \begin{align*}
+    a^2+b^2&=(n^2-m^2)^2+(2mn)^2 \\
+        &=(n^4-2n^2m^2+m^4)+(4m^2n^2)\\
+        &=n^4-2n^2m^2+m^4+4m^2n^2\\
+        &=n^4+2n^2m^2+m^4 \\
+        &=(n^2+m^2)^2 \\
+\end{align*}
+
+We will show that this is primitive. Suppose on the contrary that $p$ is a prime such that $p|a, p|b, p|c$. Then, note that $c=n^2+m^2$. Because one of $m,n$ is even, this is odd. Thus, $p\neq 2$. 
+
+Then, $p$ divides $a+c=(n^2-m^2)+(n^2+m^2)=2n^2$ which implies $p|n^2\implies p|n$. 
+
+Then, $p$ divides $c-a=(n^2+m^2)-(n^2-m^2)=2m^2$ which implies $p|m^2\implies p|m$.
+
+However, this is a contradiction because $m,n$ are rprime. Thus, the triple is primitive.
+
+Now, we will show the first assertion. Let $(a,b,c)$ be an arbitrary primitive pythagorean triple. We will show that WLOG $c$ is odd and exactly one of $a,b$ is even.
+
+If $a,b$ are both even, then $c^2$ is divisible by 4, a contradiction. If $a,b$ are both odd, then $a^2\equiv 1\mod 8$ and $b^2\equiv 1\mod 8$, so $c^2=a^2+b^2\equiv 2\mod 8$, which is a contradiction. Thus, exactly one of $a,b$ is even. WLOG say $b$ is even. 
+
+Then, $a^2+c^2=b^2$ is divisible by 4, so $a,c$ are both even or both odd. If $a,c$ are both even, then $b^2$ is divisible by 8, so $b$ is divisible by 4, so $a,b,c$ are all even, a contradiction. Thus, $a,c$ are both odd, so $c$ is odd. 
+
+Write $b=2b_1$ for some integer $b_1$. Then, \begin{align*}
+    4b_1^2=b^2=a^2-c^2=(c-a)(c+a)
+\end{align*}which gives \begin{align*}
+    b_1^2&=\frac{(c-a)(c+a)}{4} \\
+         &=\left(\frac{c-a}{2}\right)\left(\frac{c+a}{2}\right)
+\end{align*}These are both integers since $c$ is odd and $a$ is odd. 
+
+We claim that $\gcd(\frac{c-a}{2}, \frac{c+a}{2})=1$. Suppose on the contrary that $p$ is a prime such that $p|\frac{c-a}{2}$ and $p|\frac{c+a}{2}$. Then, $p$ divides their sum, which is $c$, and their difference, which is $a$. Thus, $p|a, p|c$. Since $b^2=a^2+c^2$, it follows that $p|b^2$, so $p|b$. This contradicts the fact that $(a,b,c)$ is primitive. Thus, $\gcd(\frac{c-a}{2}, \frac{c+a}{2})=1$.
+
+By the lemma 5.6, since $b_1^2=\left(\frac{c-a}{2}\right)\left(\frac{c+a}{2}\right)$ and $\gcd(\frac{c-a}{2}, \frac{c+a}{2})=1$, it follows that $\frac{c-a}{2}$ and $\frac{c+a}{2}$ are both perfect squares. Thus, there exist integers $m,n$ such that $\frac{c-a}{2}=m^2$ and $\frac{c+a}{2}=n^2$. 
+
+Then, $c=n^2+m^2$ and $a=n^2-m^2$. Since $\gcd(\frac{c-a}{2}, \frac{c+a}{2})=1$, it follows that $\gcd(m^2,n^2)=1$, so $\gcd(m,n)=1$. 
+
+Finally, since $b^2=a^2+c^2=(n^2-m^2)^2+(n^2+m^2)^2=4n^2m^2$, it follows that $b=2mn$. Additionally since $c$ is odd and $c=n^2+m^2$, it follows that one of $n,m$ is even and the other is odd. \qed
+
+\section{Lecture 17}
+
+\underline{Last Time:} We clasisfied all primitive solutions to $a^2+b^2=c^2$. That is, $a=n^2-m^2, b=2mn, c=n^2+m^2$ for $n\geq m$, $\gcd(m,n)=1$ for one even, one odd. 
+
+What about solutions to \begin{align*}
+    a^k+b^k=c^k
+\end{align*}for $k>2$? Turns out, there are no solutions with positive integers $a,b,c$. This is \underline{Fermat's Last Theorem}, eventually proven by Andrew Wiles in 1995. 
+
+\underline{Question:} Find all primitive Pythagorean Triples of the form $(21,b,c)$, if any exist at all. Then, if such a triple exists, it must satisfy that \begin{align*}
+	21=n^2-m^2, b=2mn, c=n^2+m^2
+\end{align*}
+
+for some pair $(n,m)$ as in the Theorem. We need to write $21$ as a difference of two squares in order to achieve this result. This works with $n=11, m=10$, as $121-100=21$. Then, we have the triple $b=2(10)(11)$, and $c=11^2+10^2$, so $(21,220, 221)$ is a triple. 
+
+Also, $n=5,m=2$ works, so we have $21, 20, 29$. 
+
+\subsection{5.5 - Difference of Squares}
+
+Given a positive integer $m$, how many ways (if any) can we write \begin{align*}
+	m=x^2-y^2
+\end{align*} as a difference of squares, where $x,y$ are integers?
+
+\textbf{Theorem (5.8):} Let $m$ be a positive integer. Then, $m$ can be written as a difference of squares iff. $m$ is odd or $m$ is a multiple of $4$.
+
+\textbf{Proof:} $\Leftarrow$ First note that \begin{align*}
+	(n+1)^2-n^2=2n+1
+\end{align*}So, any odd number can be written as a difference of squares. 
+
+Next, note that \begin{align*}
+	(n+1)^2-(n-1)^2=4n
+\end{align*}This shows that any multiple of $4$ is a difference of two squares. 
+
+$\Rightarrow$ Suppose $m=x^2-y^2$ is a difference of squares. Then, \begin{align*}
+	m=(x-y)(x+y)
+\end{align*}Note that the numbers $x-y,x+y$ are both either even or odd.  Thus, suppose $m=uv$ and $u,v$ have the same parity. Then, let $x=\frac{u+v}{2}$ and $y=\frac{u-v}{2}$. Then, $x^2-y^2=m$. Note that this happens only if $u,v$ have the same parity, so $m$ is either odd or a multiple of 4. \qed
+
+\underline{Note:} So there is a 1-1 correspondence between factorizations $m=uv$, where $u,v$ have the same parity and $u\geq v$, and the ways to write $m=x^2-y^2$. 
+
+\underline{Example:} Find all ways to write 21 as a difference of squares. Consider the factorizations of $21=uv$. \begin{itemize}
+	\item $u=21,v=1$ gives $21=11^2-10^2$
+	\item $u=7,v=3$ gives $21=5^2-2^2$
+\end{itemize}
+
+\underline{Example:} Find all ways to write 40 as a difference of squares. Consider the factorizations of $40=uv$. \begin{itemize}
+	\item $u=40, v=1$ gives no valid solution because they are not the same parity 
+	\item $u=20, v=2$ gives $40=11^2-9^2$
+	\item $u=10, v=4$ gives $40=7^2-3^2$
+	\item $u=8, v=5$ gives no valid solution because they are not the same parity. 
+\end{itemize}
+
+\underline{Example:} Find all ways to write 40 as a difference of squares. Consider the factorizations of $40=uv$. \begin{itemize}
+	\item $u=40, v=1$ gives no valid solution because they are not the same parity 
+	\item $u=20, v=2$ gives $40=11^2-9^2$
+	\item $u=10, v=4$ gives $40=7^2-3^2$
+	\item $u=8, v=5$ gives no valid solution because they are not the same parity. 
+\end{itemize}
+
+\underline{Example:} Find all primitive pythagorean triples with $a=45$. Note that we want to find $45=n^2-m^2$ as part of the pythagorean triple process. So write 45 as a difference of 2 squares! \begin{itemize}
+	\item $u=45, v=1$ gives $n=23, m=22$. This gives us the valid pythagorean triple $(45, 1012, 1013)$
+	\item $u=15, v=3$ gives $n=9, m=6$. However, because these 2 are not relatively prime, we cannot get a primitive pythagorean triple from this. But they do give a normal one. 
+\end{itemize}
+
+\section{Lecture 18}
+
+Congruences
+
+\subsection{6.1 - Definitions and Examples} 
+
+Let $m$ be a positive integer. 
+
+\textbf{Definition:} For $m$ a positive integer, two integers $a,b$ are congruent modulo $m$, denoted $a\equiv b\mod m$, if $m|a-b$.
+
+\underline{Notation:} $a\equiv b\mod m$ means $a$ and $b$ are in the same residue class modulo $m$. THat is, \begin{align*}
+    a\equiv b(\mod m)&\iff m|a-b \\
+    &\iff a-b=km \text{ for some integer } k \\
+    &\iff a=km+b \text{ for some integer } k
+\end{align*}
+
+\underline{Examples:} \begin{itemize}
+    \item $8\equiv 0\mod 2$
+    \item $13\equiv 1\mod 2$
+    \item $13\equiv 1\mod 6$
+    \item $5\equiv 17\mod 2$
+\end{itemize}
+
+\textbf{Proposition (6.2):} $a\equiv b(\mod m)\iff a=b+km$ for some integer $k$.
+
+\textbf{Proof:} $\Rightarrow$ If $a\equiv b\mod m$, then $m|a-b$, so $a-b=km$ for some integer $k$, so $a=b+km$.
+
+$\Leftarrow$ If $a=b+km$ for some integer $k$, then $a-b=km$, so $m|a-b$, so $a\equiv b\mod m$. \qed
+
+\underline{Note:} Note that \begin{itemize}
+    \item $a\equiv 0\mod 2\iff a$ is even
+    \item $a\equiv 1\mod 2\iff a$ is odd
+    \item \underline{and} every integer $a$ is congruent to either 0 or 1 mod 2. 
+\end{itemize} Similarly $a\equiv 0\mod 3$ means $a$ is a multiple of 3, $a\equiv 1\mod 3$ means $a$ is one more than a multiple of 3, and $a\equiv 2\mod 3$ means $a$ is two more than a multiple of 3.
+
+\textbf{Proposition (6.3):} If $a$ is an integer and $m$ is a positive integer then there is a unique integer $r$ with $0\leq r\leq m-1$ such that $a\equiv r\mod m$. Then, $r$ is called the \underline{least nonnegative residue of $a\mod m$}.
+
+\textbf{Proof:} By the division algorithm, we can write $a=mq+r$ for some unique $q,r$ with $0\leq r\leq m-1$. Then, $a\equiv r\mod m$ by the previous proposition. Uniqueness follows from the fact that if $a\equiv r'\mod m$ for some $r'$ with $0\leq r'\leq m-1$, then $r\equiv r'\mod m$, so $m|r-r'$. Since $0\leq r,r'\leq m-1$, it follows that $r=r'$. \qed
+
+\textbf{Proposition (6.4):} Let $a,b,c$ be integers and $M$ is a positive integer. Then \begin{enumerate}
+    \item $a\equiv a\mod m$ (reflexivity)
+    \item if $a\equiv b\mod m$, then $b\equiv a\mod m$ (symmetry)
+    \item if $a\equiv b\mod m$ and $b\equiv c\mod m$, then $a\equiv c\mod m$ (transitivity)
+\end{enumerate}
+
+This proposition also says that congruence modulo $m$ is an equivalence relation on $\zz$. 
+
+\textbf{Proof:}\begin{enumerate}
+    \item $m$ divides $0=a-a$, so $a\equiv a\mod m$.
+    \item Since $a\equiv b(\mod m)$, we know $m|a-b$, so $a-b=km$ for some integer $k$. Then, $b-a=-km$, so $m|b-a$, so $b\equiv a\mod m$.
+    \item Since $a\equiv b\mod m$ and $b\equiv c\mod m$, we know $m|a-b$ and $m|b-c$, so $a-c=(a-b)+(b-c)$ is divisible by $m$, so $a\equiv c\mod m$.
+\end{enumerate}\qed
+
+\underline{Note:} It follows from everything we've done today that $a\equiv b\mod m\iff a,b$ have the same remainder when divided by $m$.
+
+We'll do lots of arithmetic with congruences (\underline{modular arithmetic}), for instance $11=3\equiv 2\mod 12, 30+75\equiv 45\mod 60$, sometimes called \underline{clock arithmetic}
+
+for the second one, observe that $30+75\equiv 30+15\mod 60$ since $75\equiv 15\mod 60$, and $30+15=45$.
+
+\textbf{Proposition (6.5):} If $a\equiv b\mod m$ and $c\equiv d\mod m$, then \begin{enumerate}
+    \item $a+c\equiv b+d\mod m$
+    \item $a-c\equiv b-d\mod m$
+    \item $ac\equiv bd\mod m$
+\end{enumerate}
+
+\textbf{Proof:} \begin{enumerate}
+    \item Since $a\equiv b\mod m$ and $c\equiv d\mod m$, we know $m|a-b$ and $m|c-d$, so $a+c-(b+d)=(a-b)+(c-d)$ is divisible by $m$, so $a+c\equiv b+d\mod m$.
+    \item Since $a\equiv b\mod m$ and $c\equiv d\mod m$, we know $m|a-b$ and $m|c-d$, so $a-c-(b-d)=(a-b)-(c-d)$ is divisible by $m$, so $a-c\equiv b-d\mod m$.
+    \item Since $a\equiv b\mod m$ and $c\equiv d\mod m$, we know $m|a-b$ and $m|c-d$, so $ac-bd=a(c-d)+(a-b)d$ is divisible by $m$, so $ac\equiv bd\mod m$.
+\end{enumerate}\qed
+
+\section{Lecture 19}
+
+\underline{Example:} "Simplify" $100+4\cdot 35\mod 33$. Then, \begin{align*}
+    100+4\cdot35\equiv 1+4\cdot 2\mod 33
+\end{align*}eg the least nonnegative residue of $100+4\cdot 35\mod 33$ is $9$.
+
+\underline{Example:} $99^4\mod 101$ is $-2\mod 101$, so we have \begin{align*}
+    99^4\equiv (-2)^4\mod 101
+\end{align*}which is $16\mod 101$.
+
+\textbf{Corollary (6.6):} If $a\equiv b\mod m$, then $a^n\equiv b^n\mod m$ for all positive integers $n$.
+
+\textbf{Proof:} Use proposition 6.5's case 3 with induction. 
+
+\underline{Warning:} If $a\equiv b\mod m$ and $n\equiv k\mod m$, then $a^n\equiv b^k\mod m$ is not necessarily true. For instance, $2\equiv 5\mod 3$ and $1\equiv 4\mod 3$, but $2^1=2\not\equiv 5^4=625\mod 3$.
+
+We'll address exponents when we talk about Fermat's/Euler's theorem.
+
+Another consequence of Prop 6.5 is that we can manipulate congruences by adding/subtracting/multiplying both sides by the same integer. That is, if we want to find $x$ such that \begin{align*}
+    5x+1\equiv 8\mod 9
+\end{align*}we can just solve mod 9 to get $x\equiv 5$. That is, \begin{align*}
+    5x+1\equiv 8&\implies 5x\equiv 7\\
+    &\implies 10x\equiv 14 \\
+    &\implies x\equiv 5\mod 9
+\end{align*}
+\underline{Warning:} You cannot divide both sides of a congruence by the same integer in general. For instance, $2x\equiv 4\mod 6$ has the set $x\equiv 2\mod 6$ as ONE solution, but $x\equiv 5\mod 6$ is another solution that we got rid of by dividing by 2.
+
+\textbf{Proposition (6.7):} If $ac\equiv bc\mod m$ and $\gcd(c,m)=1$, then $a\equiv b\mod m$. 
+
+\textbf{Proof:} This follows from Proposition 6.8, which is
+
+\textbf{Proposition (6.8):} If $ac\equiv bc(\mod m)$, and $gcd(c,m)=d$, then $a\equiv b\mod (m/d)$ AND that $a\equiv b+(m/d)k\mod m$ for some integer $k$ such that $0\leq k\leq d-1$. Essentially, it's saying that we can divide both sides by $c$ if we can also divide the modulus by the gcd of $c$ and $m$.
+
+\underline{Example:} Suppose $10x\equiv 40\mod 55$. then, $\gcd(10,55)=5$, so we can divide both sides by 5 to get $2x\equiv 8\mod 11$. Since $\gcd(2,11)=1$, we can divide both sides by 2 to get $x\equiv 4\mod 11$.
+
+\textbf{Proof:} Suppose $ac\equiv bc\mod m$ and $d=\gcd(c,m)$. Then, $ac=bc+km$ for some $k\in \zz$. Then, $ac-bc=km$, and $(a-b)c=km$. This implies $(a-b)\frac{c}{d}=k\frac{m}{d}$.
+
+This shows that $m/d|\frac{c}{d}(a-b)$, and since $\gcd(\frac{c}{d}, \frac{m}{d})=1$, it follows that $m/d|a-b$, so $a\equiv b\mod (m/d)$.
+
+So, $a=b+u(m/d)$ for some integer $u$. Write $u=dq+r$ with $0\leq r\leq d-1$ as in the division algorithm. Then, $a=b+(dq+r)(m/d)=b+rm+qdm\equiv b+rm\mod m$. Thus, $a\equiv b+rm\mod m$ for some integer $r$ such that $0\leq r\leq d-1$. \qed
+
+\underline{Note:} Prime moduli are nice because they allow us to divide by any nonzero integer.
+
+\textbf{Proposition (6.10):} If $p$ is a prime and $a,b$ are integers such that $ab\equiv 0\mod p$, then $a\equiv 0\mod p$ or $b\equiv 0\mod p$.
+
+\textbf{Proof:} Suppose $ab\equiv 0\mod p$. If $a\equiv 0\mod p$, then we are done. If $a\not\equiv 0\mod p$, then $\gcd(a,p)=1$, so we can divide both sides of the congruence by $a$ to get $b\equiv 0\mod p$. \qed
+
+\section{Lecture 20}
+
+\textbf{Corollary (6.11):} Let $p$ be a prime. Then, the congruence $x^2\equiv 1\mod p$ has only the solutions $x\equiv 1\mod p$ and $x\equiv -1\mod p$.
+
+\textbf{Proof:} Suppose $x^2\equiv 1\mod p$. Then, $x^2-1\equiv 0\mod p$, so $(x-1)(x+1)\equiv 0\mod p$. By the previous proposition, $x\equiv 1\mod p$ or $x\equiv -1\mod p$. \qed
+
+\underline{Example:} Suppose $x^2\equiv 1\mod 8$. Then, we have the four solutions $x\equiv 1\mod 8$, $x\equiv 3\mod 8$, $x\equiv 5\mod 8$, and $x\equiv 7\mod 8$.
+
+\underline{Example:} Suppose $x^2\equiv 1\mod 15$. Then, we have the four solutions $x\equiv 1\mod 15$, $x\equiv 4\mod 15$, $x\equiv 11\mod 15$, and $x\equiv 14\mod 15$.
+
+This is because $x^2\equiv 1\mod 15$ is equivalent to $x^2\equiv 1\mod 3$ and $x^2\equiv 1\mod 5$. The first congruence has the solutions $x\equiv 1\mod 3$ and $x\equiv -1\mod 3$, and the second congruence has the solutions $x\equiv 1\mod 5$ and $x\equiv -1\mod 5$. By the Chinese Remainder Theorem, we can combine these to get the four solutions listed above.
+
+\subsection{6.2 - Modular Exponentiation}
+
+For a lot of cryptography, it's important to calculate $a^n\mod m$ for large $a,n,m$. 
+
+\underline{Example:} Let's evaluate $5^{199}\mod 101$. We can keep squaring and reducing $\mod 101$, eg \begin{align*}
+    5^2\equiv 25\mod 101\\
+    5^4\equiv 25^2\equiv 625\equiv 19\mod 101\\
+    \dots
+    5^128\equiv 24\mod 101\\
+\end{align*}Then, $199=128+64+4+2+1$ and so \begin{align*}
+    5^199=5^{128}5^{64}5^4 5^2 5^1\equiv 24\cdot 78\cdot 19\cdot 25\cdot 5\equiv 81\mod 101
+\end{align*}This is pretty efficient as it turns out! We just need to compute the mods in the powers of 2 and then break them down. 
+
+\subsection{6.3 - Divisibility Tests}
+
+Is $8394$ divisible by $2?$ is $9125$? It turns out that "$n$ is divisible by 2 iff its last digit is divisible by 2", as we all know. The decimal expansion of $8394$ is as follows: \begin{align*}
+    8394&=8\cdot 10^3+3\cdot 10^2+9\cdot 10^1+4\cdot 10^0
+    &\equiv 0 + 0 + 0 + 4\mod 2\\
+    &\equiv 4\mod 2\\
+    &\equiv 0\mod 2
+\end{align*}
+
+\textbf{Proposition (6.13):} $n$ is congruent to its last 2 digits mod 4, and is congruent to its last 3 digits mod 8.
+
+\textbf{Proof:} This follows from the fact that $10^2\equiv 0\mod 4$ and $10^3\equiv 0\mod 8$.
+
+\textbf{Proposition (6.14):} $n$ is congruent $\mod 3$ (or $\mod 9$) to the sum of its digits. Consequently, $n$ is divisible by 3 (or 9) iff the sum of its digits is divisible by 3 (or 9).
+
+\textbf{Proof:} If $k\geq 1$, then $10^k\equiv 1\mod 3$ and $10^k\equiv 1\mod 9$. Thus, if $n=a_k10^k+a_{k-1}10^{k-1}+\dots + a_110+a_0$ is the decimal expansion of $n$, then \begin{align*}
+    n&=a_k10^k+a_{k-1}10^{k-1}+\dots + a_110+a_0\\
+    &\equiv a_k+a_{k-1}+\dots + a_1+a_0\mod 3
+\end{align*}and \begin{align*}
+    n&=a_k10^k+a_{k-1}10^{k-1}+\dots + a_110+a_0\\
+    &\equiv a_k+a_{k-1}+\dots + a_1+a_0\mod 9
+\end{align*}Thus, $n$ is divisible by 3 (or 9) iff the sum of its digits is divisible by 3 (or 9). \qed
+
+\section{Lecture 21}
+
+
+
 \end{document}
