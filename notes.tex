@@ -984,8 +984,8 @@ The contrapositive states: If $\sqrt[k]{n}$ is rational, then $n$ is a $k$-th po
 Let $\sqrt[k]{n}=\frac{a}{b}$ where $a,b$ are integers with $b>0$ and $\gcd(a,b)=1$. Then, \begin{align*}
     n&=\left(\frac{a}{b}\right)^k \\
      &= \frac{a^k}{b^k} \\
-     &= 2^{ka_2}3^{ka_3}5^{ka_5}\dots
-\end{align*}By the fundamental theorem of arithmetic, the prime factorization of $n$ is unique, so $n=2^{ka_2}3^{ka_3}5^{ka_5}\dots$. By the previous proposition, $n$ is a $k$-th power of an integer. \qed
+     &= 2^{k(a_2-b_2)}3^{k(a_3-b_3)}5^{k(a_5-b_5)}\dots
+\end{align*}By the fundamental theorem of arithmetic, the prime factorization of $n$ is unique, so $n=2^{k(a_2-b_2)}3^{k(a_3-b_3)}5^{k(a_5-b_5)}\dots$. By the previous proposition, $n$ is a $k$-th power of an integer. \qed
 
 \underline{Example:} $\sqrt[3]{9}, \sqrt[5]{8}$ are irrational. $2=\sqrt[4]{16}$ is rational. 
 
@@ -1374,6 +1374,134 @@ Is $8394$ divisible by $2?$ is $9125$? It turns out that "$n$ is divisible by 2 
 \end{align*}Thus, $n$ is divisible by 3 (or 9) iff the sum of its digits is divisible by 3 (or 9). \qed
 
 \section{Lecture 21}
+
+\underline{Last Time:} Divisibility tests: we did 3, 9, etc. 
+
+Lastly, consider divisibility by 11. We know that $10\equiv -1\mod 11$, so $10^2\equiv 1\mod 11$, and generally \begin{align*}
+    10^k\equiv (-1)^k\mod 11
+\end{align*}
+
+Suppose $n=a_k10^k+a_{k-1}10^{k-1}+\dots + a_110+a_0$ is the decimal expansion of $n$. Then, \begin{align*}
+    n&=a_k10^k+a_{k-1}10^{k-1}+\dots + a_110+a_0\\
+    &\equiv a_k(-1)^k+a_{k-1}(-1)^{k-1}+\dots + a_1(-1)+a_0\mod 11
+\end{align*}Thus, $n$ is divisible by 11 iff the alternating sum of its digits is divisible by 11. For instance, $123456$ is divisible by 11 iff $1-2+3-4+5-6=-3$ is divisible by 11, which is not the case.
+
+\textbf{Proposition (6.16):} $n$ is congruent mod 11 to the alternating sum of its digits. Consequently, $n$ is divisible by 11 iff the alternating sum of its digits is divisible by 11.
+
+\textbf{Proof:} This follows from the fact that $10^k\equiv (-1)^k\mod 11$. \qed
+
+\subsection{6.4 - Linear Convergence}
+
+Given integers $a,b,m$ we want to solve the linear congruence \begin{align*}
+    ax\equiv b\mod m
+\end{align*} for $x$. We want $\pmod{m}$ solutions, so we usually give least nonnegative residues as solutions.
+
+\underline{Example:} We could try all the possibilities, eg for \begin{align*}
+    3x\equiv 2\pmod 5
+\end{align*}
+
+We can try $x=0,1,2,3,4$ to see if any of these work. We find that $x=4$ works, so the solution is $x\equiv 4\mod 5$.
+
+\underline{Example:} We can try all the possibilities for \begin{align*}
+    4x\equiv 2\pmod 10
+\end{align*}has solutions $x=3,8,\dots$
+
+\underline{Example:} We can try all the possibilities for \begin{align*}
+    4x\equiv 3\pmod 10
+\end{align*}has no solutions.
+
+To study linear congruences, we will convert them to linear Diophantine equations. That is, we want to solve \begin{align*}
+    ax\equiv b\mod m&\iff ax=b+km\text{ for some integer } k\\
+    &\iff ax-km=b
+\end{align*}for some integer $k$. This is a linear Diophantine equation in the variables $x$ and $k$. We know how to solve these from before, so we can solve linear congruences by converting them to linear Diophantine equations.
+
+Recall that the diophantine equation \begin{align*}
+    ax-my=b
+\end{align*} has solutions iff $d=\gcd(a,m)|b$. If $d|b$, then there are infinitely many solutions, and the solutions are of the form \begin{align*}
+    (x,y)=(x_0,y_0)+t\left(\frac{m}{d}, \frac{a}{d}\right)
+\end{align*}for some integer $t$, where $(x_0,y_0)$ is a particular solution.
+
+\section{Lecture 22}
+
+\textbf{Theorem (6.18):} Let $m>0, a\neq 0\pmod m$. Then, the congruence $ax\equiv b\pmod m$ has a solution iff $d=\gcd(a,m)$ divides $b$. Additionally there are exactly $d$ distinct solutions up to $\pmod m$.
+
+Moreover if $x_0$ is one solution, then the collection of all solutions $\pmod m$ are given by \begin{align*}
+    x\equiv x_0+\frac{m}{d}\cdot k\pmod m, 0\leq k<d
+\end{align*}
+
+The solution $x_0$ can be taken to be any integer solution of \begin{align*}
+    \frac{a}{d}x\equiv \frac{b}{d}\pmod{\frac{m}{d}}
+\end{align*}
+
+\textbf{Proof:} We know that \begin{align*}
+    ax\equiv b\pmod m \iff \exists y ax-my=b
+\end{align*}
+Then, using Theorem 3.1, the diophantine equation has solutions iff $d|b$, and so the congruence has solutions iff that holds. 
+
+If $d|b$, then all solutions of the Diophantine equation have the form \begin{align*}
+    x=x_0-(\frac{-m}{d})k, y=y_0+\frac{a}{d}k\\
+    x=x_0+\frac{m}{d}k, y=y_0+\frac{a}{d}k
+\end{align*}
+
+Here, $(x_0, y_0)$ is one solution of the Diophantine equation. Then, all solutions of $ax\equiv b\pmod m$ have the form \begin{align*}
+    x\equiv x_0+\frac{m}{d}k\pmod m
+\end{align*} for some integer $k$ (and $x_0$ is a solution of $ax\equiv b\pmod m$). Now, it only remains to show that $0\leq k<d$. Note that \begin{align*}
+    x_0+\frac{m}{d}k\equiv x_0+\frac{m}{d}(k+d)\pmod m
+\end{align*}so we can reduce $k$ mod $d$ to get $0\leq k<d$.
+
+Lastly, if $x_0$ is any solution of $(\frac{a}{d}x_0)\equiv \frac{b}{d}\pmod{\frac{m}{d}}$, then \begin{align*}
+    \frac{a}{d}x_0\equiv \frac{b}{d}\pmod{\frac{m}{d}}&\iff ax_0=b+mt\text{ for some integer } t\\
+    &\iff ax_0\equiv b\pmod m
+\end{align*}
+
+\textbf{Corollary (6.19):} If $\gcd(a,m)=1$, then the congruence $ax\equiv b\pmod m$ has a unique solution $\pmod m$.
+
+\underline{Example:} $4x\equiv 3\mod 10$ has no solutions since $\gcd(4,10)=2$ does not divide $3$.
+
+\underline{Example:} $4x\equiv 2\mod 10$ has solutions since $\gcd(4,10)=2$ divides $2$. We can divide both sides by 2 to get $2x\equiv 1\mod 5$. 
+
+$x_0=3$ solves this. All solutions must thus have the form \begin{align*}
+    x\equiv 3+(10/2)k\mod 10\\
+    x\equiv 3+5k\mod 10, 0\leq k<2
+\end{align*}This gives us the two solutions $x\equiv 3\mod 10$ and $x\equiv 8\mod 10$.
+
+\underline{Example:} $3x\equiv 12\pmod 18$ has solutions because $\gcd(3,18)=3$ divides $12$. 
+
+Clearly $4$ is a solution, and all solutions must have the form \begin{align*}
+    x\equiv 4+(18/3)k\mod 18\\
+    x\equiv 4+6k\mod 18, 0\leq k<3
+\end{align*}This gives us the three solutions $x\equiv 4\mod 18$, $x\equiv 10\mod 18$, and $x\equiv 16\mod 18$.
+
+\underline{Example:} $100x\equiv 11\pmod{29}$. First, $100\equiv 13\pmod{29}$. Thus, we are solving $13x\equiv 11\pmod{29}$. 
+
+Since $\gcd(13,29)=1$, there is a unique solution $\pmod{29}$. Then, we will try to solve \begin{align*}
+    13x\equiv 11\pmod{29}&\iff 13x=11+29k\text{ for some integer } k\\
+    &\iff 13x-29k=11
+\end{align*}Use the extended Euclidean algorithm to solve this. We have \begin{align*}
+    29&=13\cdot 2+3\\
+    13&=3\cdot 4+1\\
+    3&=1\cdot 3+0
+\end{align*}Then, we can back substitute to get \begin{align*}
+    1&=13-3\cdot 4\\
+    &=13-4(29-13\cdot 2)\\
+    &=9\cdot 13-4\cdot 29
+\end{align*}Thus, $11=11\cdot 1=11(9\cdot 13-4\cdot 29)=99\cdot 13-44\cdot 29$. This gives us the solution $x=99\equiv 12\mod 29$. That is, $100*12\equiv 11\mod 29$.
+
+\subsection{Multiplicative Inverses}
+
+\textbf{Definition (Multiplicative Inverse):} We say that integers $a,b$ are multiplicative inverses $\mod m$ if $ab\equiv 1\mod m$.
+
+Then we will write that \begin{align*}
+    a^{-1}\equiv b\mod m, \text{ or } b^{-1}\equiv a\mod m
+\end{align*}
+
+\underline{Example:} $(13)(9)\equiv 1\pmod{29}$ so $13^{-1}\equiv 9\mod 29$ and $9^{-1}\equiv 13\mod 29$.
+
+\underline{Example:} In $\pmod 7$, $2\cdot 4\equiv 1\pmod 7$ so $2^{-1}\equiv 4\mod 7$ and $4^{-1}\equiv 2\mod 7$.
+
+Note that the inverse of $a\pmod m$ is a solution to \begin{align*}
+    ax\equiv 1\mod m
+\end{align*}
 
 
 
