@@ -1503,6 +1503,76 @@ Note that the inverse of $a\pmod m$ is a solution to \begin{align*}
     ax\equiv 1\mod m
 \end{align*}
 
+\section{Lecture 23}
 
+\subsection{Multiplicative Inverses $\pmod m$}
+
+Recall that for integers $a,b$ and a positive integer $m$, we say that $a$ and $b$ are multiplicative inverses $\mod m$ if $ab\equiv 1\mod m$.
+
+\underline{Example:} $\pmod 10$ \begin{align*}
+    1\cdot 1\equiv 1\mod 10\implies 1^{-1}\equiv 1\mod 10\\
+    3\cdot 7\equiv 1\mod 10\implies 3^{-1}\equiv 7\mod 10\\
+    9\cdot 9\equiv 1\mod 10\implies 9^{-1}\equiv 9\mod 10
+\end{align*}
+here, 0,2,4,5,6,8 do not have inverses $\mod 10$. This is because $\gcd(0,10)=10$, $\gcd(2,10)=2$, $\gcd(4,10)=2$, $\gcd(5,10)=5$, $\gcd(6,10)=2$, and $\gcd(8,10)=2$ are not equal to 1.
+
+\underline{Note:} The integers that have multiplicative inverses $\mod m$ are precisely those that are rprime to $m$.
+
+\textbf{Corollary (6.21):} The integer $a$ has an inverse $\pmod m$ iff $\gcd(a,m)=1$.
+
+Furthermore, in this case, the inverse is unique $\pmod m$.
+
+\textbf{Proof:} In order to find the inverse of $a\pmod m$, we need to solve \begin{align*}
+    ax\equiv 1\mod m
+\end{align*}By Theorem 6.18, this has a solution iff $\gcd(a,m)=1$. 
+
+Then, suppose $x_0$ is a solution. Then, all solutions have the form \begin{align*}
+    x\equiv x_0+(m/1)k\mod m\\
+    x\equiv x_0\mod m
+\end{align*}so the solution is unique $\mod m$. \qed
+
+\underline{Example:} In a previous example we found that $13(9)+29(-4)=1$, so $13(9)\equiv 1\mod 29$, so $13^{-1}\equiv 9\mod 29$.
+
+\underline{Example:} Find the inverse of $49\pmod{100}$. We can use the extended Euclidean algorithm to find integers $x,y$ such that $49x-100y=1$. We have \begin{align*}
+    100&=49\cdot 2+2\\
+    49&=2\cdot 24+1\\
+    2&=1\cdot 2+0
+\end{align*}Then, we can back substitute to get \begin{align*}
+    1&=49-2\cdot 24\\
+    &=49-24(100-49\cdot 2)\\
+    &=49\cdot 49-24\cdot 100
+\end{align*}Thus, $49(49)\equiv 1\mod 100$, so $49^{-1}\equiv 49\mod 100$.
+
+Additionally, this inverse is unique $\mod 100$, so the only solution to $49x\equiv 1\mod 100$ is $x\equiv 49\mod 100$.
+
+\begin{aside}
+Suppose $x+1|m$. Then, is the inverse of $x\mod m$ always equal to itself if $\gcd(x,m)=1$? For instance, $49+1=50|100$, and $49^{-1}\equiv 49\mod 100$.
+
+No, because $x=2, m=21$ is a counterexample. But what if $\frac{m}{x+1}|x-1$? That is, if $x+1$ divides $m$, and the ratio $\frac{m}{x+1}$ divides $x-1$. 
+
+\textbf{Proof:} Suppose $x+1|m$, and $\gcd(x,m)=1$. (That is, $x$ has an inverse $\mod m$). Additionally, let $\frac{m}{x+1}|x-1$. That is, $x-1=k\cdot \frac{m}{x+1}$ for some integer $k$.
+
+Then, $m=k(x+1)$ for some integer $k$ by assumption. Then, we aim to show $x^2\equiv 1\pmod m$.
+
+Note that $x^2-1=(x-1)(x+1)$. Note that $x+1|(x-1)(x+1)$, so $k(x+1)|k(x-1)(x+1)$, so $m|k(x-1)(x+1)$, so $m|k(x^2-1)$. We aim to show that $k|(x-1)$. 
+
+However, this is immediate since $x-1=k\cdot \frac{m}{x+1}$. Thus, $k|(x-1)$, so $m|k(x^2-1)$ implies $m|(x^2-1)$, so $x^2\equiv 1\mod m$. Thus, $x^{-1}\equiv x\mod m$. \qed
+
+Furthermore, all families $x=kt+1, m=k(kt+2)$ for some $k>0, t$ satisfies this. For example, if $k=2, t=3$, then $x=2*3+1=7$ and $m=2(6+2)=16$. Then, $7^{-1}\equiv 7\mod 16$.
+\end{aside}
+
+\underline{Note:} Using the inverse to solve $ax\equiv b\pmod m$: If $a$ has an inverse $\pmod m$, then \begin{align*}
+    ax\equiv b\pmod m\\
+    a^{-1}ax\equiv a^{-1}b\mod m\\
+    x\equiv a^{-1}b\mod m
+\end{align*}is the unique solution $\mod m$.
+
+\subsection{6.5 - Chinese Remainder Theorem}
+
+1700 years ago, Sun Tzu asks for a number $x$ that leaves a remainder of 2 when divided by 3, a remainder of 3 when divided by 5, and a remainder of 2 when divided by 7. That is, we want to solve the system of congruences \begin{align*}
+    x&\equiv 2\mod 3\\
+    x&\equiv 3\mod 5\\
+    x&\equiv 2\mod 7
+\end{align*}
 
 \end{document}
