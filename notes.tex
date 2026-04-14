@@ -1772,4 +1772,146 @@ Also, if $2^{n-1}\not\equiv 1\pmod n$, then $n$ is composite.
 
 Thus, $2^{132}=2^{128}\cdot 2^4\equiv 4\cdot 16\equiv 64\not\equiv 1\mod 133$, so $133$ is composite.
 
+\section{Lecture 26}
+
+Exam
+
+\section{Lecture 27}
+
+\textbf{Lemma (8.4):} Let $p$ be a prime and $b\not \equiv 0\pmod p$. Then the set of numbers \begin{align*}
+    \{b, 2b, 3b, \dots, (p-1)b\}\pmod p =\{1, 2, 3, \dots, p-1\}\pmod p
+\end{align*}
+
+\textbf{Example:} If we have $p=11, b=3$, then \begin{align*}
+    \{b, 2b, 3b, \dots, 10b\} &=\{3, 6, 9, 1, 4, 7, 10, 2, 5, 8\}\\
+    &=\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}
+\end{align*}
+
+\textbf{Proof:} Note that if $1\leq k\leq p-1$ then $kb\not\equiv 0\pmod p$.
+
+To see the elements of $\{b, 2b, \dots, (p-1)b\}$ are different, suppose $ib\equiv jb\pmod p$ for some $1\leq i,j\leq p-1$. Then, multiply by $b^{-1}$ to get $i\equiv j\pmod p$. Since $1\leq i,j\leq p-1$, this implies $i=j$. Thus, the elements of $\{b, 2b, \dots, (p-1)b\}$ are different. Since there are $p-1$ elements in $\{b, 2b, \dots, (p-1)b\}$ and $p-1$ elements in $\{1, 2, \dots, p-1\}$, the two sets must be equal. \qed
+
+\textbf{Theorem (Fermat's (Little) Theorem):} Let $p$ be a prime. Then, \begin{enumerate}
+    \item For any integer $b$ \begin{align*}
+        b^p\equiv b\pmod p
+    \end{align*}
+    \item If $b\not\equiv 0\pmod p$ then \begin{align*}
+        b^{p-1}\equiv 1\pmod p
+    \end{align*}
+\end{enumerate} 
+
+\textbf{Proof:} We know that these are equivalent to each other. Then, we will prove b. 
+
+Let $b\not\equiv 0\pmod p$. Then by lemma \begin{align*}
+    \{b, 2b, 3b, \dots, (p-1)b\} &=\{1, 2, 3, \dots, p-1\}\\
+    \implies b\cdot 2b\cdot 3b\cdots (p-1)b&=1\cdot 2\cdot 3\cdots (p-1)\\
+    b^{p-1}\cdot (p-1)!&=(p-1)!
+\end{align*}Since $\gcd((p-1)!, p)=1$, we can divide both sides by $(p-1)!$ to get $b^{p-1}\equiv 1\mod p$. \qed
+
+Let $\phi(n)$ denote the number of elements in the set $T=\{1\leq k\leq n: \gcd(k,n)=1\}$. For instance, $\phi(10)=4$ since the elements of $T$ are 1,3,7,9.
+
+Then \begin{align*}
+    \phi(p)=p-1\text{ for prime } p
+    \phi(2)=1\\
+    \phi(3)=2\\
+    \phi(5)=4\\
+    \phi(7)=6\\
+\end{align*}for primes. But $\phi(4)=2$
+
+\subsection{8.9 - Euler's Theorem}
+
+\underline{Fact:} The product of two or more invertibles $\pmod n$ is also invertible. Additionally, the inverse of $ab$ is $(ab)^{-1}=b^{-1}a^{-1}$. 
+
+Suppose $\gcd(b,n)=1$ so that $b$ is invertible. Let $bT=\{b a\pmod n: a\in T\}$. Then, $bT$ is the set of invertibles $\pmod n$. Thus, $|bT|=|T|=\phi(n)$.
+
+\textbf{Theorem:} $bT=T$. 
+
+\textbf{Proof:} Everything in $bT$ is a product of invertibles, and thus is invertible, and $bT\subseteq T$. 
+
+Then, given any $a\in T$, we can write \begin{align*}
+    a\equiv b(b^{-1}a)\mod n
+\end{align*}Since $b^{-1}a\in T$, we have $b^{-1}a\equiv bT$ so $a\equiv b(b^{-1}a)\equiv bT$. Thus, $T\subseteq bT$. \qed
+
+\textbf{Theorem (8.9):} (Euler's Theorem): Suppose $n$ positive and $\gcd(b,n)=1$, then \begin{align*}
+    b^{\phi(n)}\equiv 1\pmod n
+\end{align*}
+
+\textbf{Proof:} By the lemma, $T=bT$. Thus, \begin{align*}
+    \prod_{a\in T}a&\equiv\prod_{x\in bT}x\\
+    &\equiv \prod_{a\in T}ba\pmod n\\
+    (\prod_{a\in T}a)&\equiv b^{\phi(n)}(\prod_{a\in T}a)\mod n
+\end{align*}Since $\prod_{a\in T}a$ is a product of invertibles, it is invertible mod $n$. Multiply by $(\prod_{a\in T}a)^{-1}$ to get $1\equiv b^{\phi(n)}\mod n$. \qed
+
+\underline{Remark:} If $n=p$ a prime, then $\phi(p)=p-1$ and this is Fermat's
+
+\underline{Example:} $n=14$ has $\phi(14)=6$ since the elements of $T$ are 1,3,5,9,11,13. Then, if $\gcd(b,14)=1$, then $b^6\equiv 1\mod 14$.
+
+\underline{Example:} Reduce $5^{362}\pmod{14}$. Then, \begin{align*}
+    5^{362}&\equiv 5^{6\cdot 60+2}\mod 14\\
+    &\equiv (5^6)^{60}\cdot 5^2\mod 14\\
+    &\equiv 1^{60}\cdot 25\mod 14\\
+    &\equiv 11\mod 14
+\end{align*}
+
+\section{Lecture 28}
+
+\underline{Recall:} Euler's theorem says that if $n$ is a positive integer and $\gcd(b,n)=1$, then $b^{\phi(n)}\equiv 1\mod n$, where $\phi(n)=|\{1\leq k\leq n: \gcd(k,n)=1\}|$.
+
+\textbf{Corollary (8.1):} Let $n$ be a positive integer and suppose $\gcd(b,n)=1$. Then, if $x\equiv y\pmod{\phi(n)}$ then \begin{align*}
+    b^x\equiv b^y\pmod n
+\end{align*}
+
+\textbf{Proof:} $x\equiv y\pmod{\phi(n)}$ implies $x=y+\phi(n)k$ for some integer $k$. Then, \begin{align*}
+    b^x&=b^{y+\phi(n)k}\\
+    &=(b^{\phi(n)})^kb^y\\
+    &\equiv 1^kb^y\mod n\\
+    &\equiv b^y\mod n
+\end{align*} \qed
+
+\underline{Example:} Reduce $47^{50}\pmod{15}$. This is \begin{align*}
+    47^{50}&\equiv 2^{50}\mod 15\text{ since } 47\equiv 2\mod 15\\
+    &\equiv 2^{2}\mod 15\text{ since } \phi(15)=8, 50\pmod 8=2\\
+    &\equiv 4\mod 15
+\end{align*}
+
+To effectively use Euler's theorem, we need to be able to compute $\phi(n)$ efficiently.
+
+\textbf{Proposition (8.7):} If $p$ is a prime and $k\geq 1$, then \begin{align*}
+    \phi(p^k)=p^k-p^{k-1}=p^{k-1}(p-1)
+\end{align*}
+
+\textbf{Proof:} There are $p^k$ integers $a$ such that $1\leq a\leq p^k$. Then, note that $\gcd(a,p^k)\neq 1\iff p|a\iff a=pt$ for some integer $t$. There are $p^{k-1}$ integers $a$ such that $1\leq a\leq p^k$ and $p|a$, since there are $p^{k-1}$ integers $t$ such that $1\leq t\leq p^{k-1}$. Thus, there are $p^k-p^{k-1}$ integers $a$ such that $1\leq a\leq p^k$ and $\gcd(a,p^k)=1$. \qed
+
+\textbf{Proposition (8.6):} If $\gcd(m,n)=1$, then $\phi(mn)=\phi(m)\phi(n)$.
+
+\textbf{Proof:} Use the 2 previous propositions.
+
+\underline{Example:} $\phi(100)=\phi(2^2\cdot 5^2)=\phi(2^2)\cdot \phi(5^2)=(2^2-2^1)(5^2-5^1)=40$.
+
+\underline{Example:} $\phi(120)=\phi(2^3\cdot 3 \cdot 5)=\phi(2^3)\cdot \phi(3)\cdot \phi(5)=(2^3-2^2)(3-1)(5-1)=32$.
+
+\textbf{Theorem (8.8):} Let $n=p_1^{a_1}p_2^{a_2}p_5^{a_5}\dots p_r^{a_r}$ be the prime factorization of $n$. Then, \begin{enumerate}
+    \item $\phi(n)=\prod_{i=1}^r p_i^{a_i}-p_i^{a_i-1}$
+    \item $\phi(n)=n\prod_{i=1}^r (1-\frac{1}{p_i})=n\prod_{p|n, p\text{ prime}}(1-\frac{1}{p})$
+\end{enumerate}
+
+\textbf{Proof:} 1. \begin{align*}
+    \phi(n)&=\phi(p_1^{a_1}p_2^{a_2}p_5^{a_5}\dots p_r^{a_r})\\
+    &=\phi(p_1^{a_1})\cdot \phi(p_2^{a_2})\cdot \phi(p_5^{a_5})\cdots \phi(p_r^{a_r})\\
+    &=(p_1^{a_1}-p_1^{a_1-1})(p_2^{a_2}-p_2^{a_2-1})(p_5^{a_5}-p_5^{a_5-1})\cdots (p_r^{a_r}-p_r^{a_r-1}) \qquad \text{(1)}\\
+    &=p_1^{a_1}(1-\frac{1}{p_1})\cdot p_2^{a_2}(1-\frac{1}{p_2})\cdot p_5^{a_5}(1-\frac{1}{p_5})\cdots p_r^{a_r}(1-\frac{1}{p_r})\\
+    &= p_1^{a_1}p_2^{a_2}p_5^{a_5}\dots p_r^{a_r}\cdot (1-\frac{1}{p_1})(1-\frac{1}{p_2})(1-\frac{1}{p_5})\cdots (1-\frac{1}{p_r})\\
+    &=n\prod_{i=1}^r (1-\frac{1}{p_i}) \qquad \text{(2)}
+\end{align*}\qed
+
+\underline{Example:} The only prime divisors of $100$ are $2$ and $5$, so $\phi(100)=100(1-\frac{1}{2})(1-\frac{1}{5})=100\cdot \frac{1}{2}\cdot \frac{4}{5}=40$.
+
+\underline{Example:} The only prime divisors of $120$ are $2,3,5$, so $\phi(120)=120(1-\frac{1}{2})(1-\frac{1}{3})(1-\frac{1}{5})=120\cdot \frac{1}{2}\cdot \frac{2}{3}\cdot \frac{4}{5}=32$.
+
+\underline{Sketch of Proof of Prop 8.6:} Write $\zz_n=\{0,1,\dots,n-1\}$. Then, define the function \begin{align*}
+    F:\zz_{mn}&\to \zz_m\times \zz_n\\
+\end{align*}by $F(a)=(a\pmod m, a\mod n)$. Then, $F$ is a bijection. Additionally, assuming $\gcd(m,n)=1$, the CRT says that $a\equiv b\mod mn$ if and only if $a\equiv b\mod m$ and $a\equiv b\mod n$. Thus, $F$ restricts to a bijection between the invertibles $\mod mn$ and the pairs of invertibles $\mod m$ and $\mod n$. Thus, $\phi(mn)=\phi(m)\cdot \phi(n)$. \qed 
+
+\underline{Note:} In fact, it's a ring isomorphism because $F(a+b)=(a+b\mod m, a+b\mod n)=F(a)+F(b)$ and $F(ab)=(ab\mod m, ab\mod n)=F(a)F(b)$. 
+
 \end{document}
