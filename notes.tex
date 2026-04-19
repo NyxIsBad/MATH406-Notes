@@ -1914,4 +1914,187 @@ To effectively use Euler's theorem, we need to be able to compute $\phi(n)$ effi
 
 \underline{Note:} In fact, it's a ring isomorphism because $F(a+b)=(a+b\mod m, a+b\mod n)=F(a)+F(b)$ and $F(ab)=(ab\mod m, ab\mod n)=F(a)F(b)$. 
 
+\section{Lecture 29}
+
+\subsection{8.3 - Wilson's Theorem}
+
+\textbf{Theorem (8.12):} (Wilson's Theorem): Let $p$ be a prime. Then, \begin{align*}
+    (p-1)!\equiv -1\pmod p
+\end{align*}
+
+\underline{Example:} \begin{itemize}
+    \item $(3-1)!=2!=2\equiv -1\mod 3$
+    \item $(5-1)!=4!=24\equiv -1\mod 5$
+    \item $(7-1)!=6!=720\equiv -1\mod 7$
+\end{itemize}
+
+\textbf{Proof:} We know that \begin{align*}
+    (p-1)!=1\cdot 2\cdot 3\cdots (p-1)
+\end{align*}
+Then, every $b$ with $1\leq b\leq p-1$ has an inverse $\pmod p$ because $\gcd(b,p)=1$. 
+
+Note that $1$ is its own inverse, as is $p-1\equiv -1\pmod p$. 
+
+However, these are the only two elements with this property. We proved previously that the only solutions of $x^2\equiv 1\pmod p$ are $x\equiv \pm 1\mod p$. Thus, every other element $b$ with $1\leq b\leq p-1$ has an inverse $b^{-1}$ such that $b^{-1}\neq b$. 
+
+So, \begin{align*}
+    (p-1)!&\equiv 1\cdot (p-1)\cdot \prod_{b\in S} b b^{-1}\mod p\\
+    &\equiv 1\cdot (p-1)\cdot 1\mod p\\
+    &\equiv -1\mod p
+\end{align*}
+
+\textbf{Corollary (8.13):} Let $n\geq 2$ be an integer. Then, $n$ is prime iff. \begin{align*}
+    (n-1)!\equiv -1\pmod n
+\end{align*}
+
+\textbf{Proof:} $\Rightarrow$ if $n$ is prime, then $(n-1)!\equiv -1\mod n$ by Wilson's theorem.
+
+$\Leftarrow$: Assume $(n-1)!\equiv -1\mod n$. Suppose $d|n$ and $1\leq d<n$. We'll show $d=1$. Since $1\leq d\leq n-1$, $d|(n-1)!$. 
+
+Thus, $(n-1)!\equiv 0\pmod d$. But $(n-1)!\equiv -1\mod n$ implies $(n-1)!\equiv -1\mod d$ because $d|n$. So $-1\equiv (n-1)!\equiv 0\pmod d$. This implies $d|(0-(-1))=1$, so $d=1$, and $n$ is prime. 
+
+\subsection{7.1 - Classical Cryptosystems}
+
+Suppose Alice and Bob want to share messages, and Bob wants to send a message to Alice. We have Eve, the eavesdropper. We want only Alice to be able to read the message. So even if Eve, the eavesdropper, hears or intercepts the message, she can't read or understand it.
+
+Bob encrypts the plaintext into a form called ciphertext, which he sends to Alice. The ciphertext is unreadable/not understandable, so Eve can't read the plaintext even if she intercepts the ciphertext. 
+
+Then, Alice and Bob need to agree on a cryptosystem and a key. Suppose they are using a \underline{shift cipher}, in which they shift each letter forward by 6 letters. Then, the encoding of the message "EULER" would be "KARKX". Alice can reverse this encryption. 
+
+\section{Lecture 30}
+
+Take the alphabet. Then, a shift cipher compels a bijection from the alphabet to $\zz_{26}$. In a shift cipher, we choose a key $k\in \zz_{26}$, and we encrypt the letter $a$ to $a+k\mod 26$.
+
+\underline{Example:} Suppose our shift cipher is defined by the key $-10$. Then, we define \begin{align*}
+    f: x\to x-10\mod 26
+\end{align*}where the plaintext is \begin{center}
+    \begin{tabular}{c|c|c|c|c|c}
+        Plaintext & G & A & U & S & S\\
+        \hline
+        $x$ & 6 & 0 & 20 & 18 & 18\\
+        $x-10\pmod{26}$ & 22 & 16 & 10 & 8 & 8\\
+        \hline
+        Ciphertext & W & Q & K & I & I
+    \end{tabular}
+\end{center}
+
+\underline{Affine Ciphers:} Here, choose some $a$ with $\gcd(a,26)=1$ and some $b\in \zz_{26}$. Then, we encrypt the letter $x$ to $ax+b\mod 26$.
+
+\underline{Example:} Define the function \begin{align*}
+    f: x\to 3x+2\pmod{26}
+\end{align*}
+
+Then, \begin{center}
+    \begin{tabular}{c|c|c|c|c|c}
+        Plaintext & E & U & L & E & R\\
+        \hline
+        $x$ & 4 & 20 & 11 & 4 & 17\\
+        $3x+2\pmod{26}$ & 14 & 10 & 9 & 14 & 1\\
+        \hline
+        Ciphertext & O & K & J & O & B
+    \end{tabular}
+\end{center}
+
+Then, to decrypt, Alice has to solve for $x$. That is, she has to solve (for the first letter) \begin{align*}
+    3x+2&\equiv 14\mod 26\\
+    3x&\equiv 12\mod 26\\
+    x&\equiv 3^{-1}\cdot 12\mod 26
+    x&\equiv 4\mod 26
+\end{align*}
+etc. In general, \begin{align*}
+    3x+2&\equiv y\mod{26}\\
+    3x&\equiv y-2\mod 26\\
+    9\cdot 3x &\equiv 9(y-2)\mod 26\\
+    x&\equiv 9(y-2)\mod 26\\
+    x&\equiv 9y-18\mod 26\\
+    x&\equiv 9y+8\mod 26
+\end{align*}
+
+The decryption function is this \begin{align*}
+    f: y\to 9y+8\mod 26
+\end{align*}
+
+\underline{Note:} Suppose we came up with an affine cipher, but $\gcd(a,26)\neq 1$. Then, we can't decrypt the message because we can't solve for $x$ in the equation $ax+b\equiv y\mod 26$. For instance, if the gcd was 2, then it would have 2 solutions (eg 2 different PT letters would encrypt to the same CT letter), so we wouldn't be able to decrypt the message.
+
+\underline{Note:} While there are 26 different shift ciphers (including the trivial cipher), for an affine cipher $x\to ax+b\pmod{26}$ there are $\phi(26)=12$ choices for $a$ and 26 choices for $b$, so there are $12\cdot 26=312$ different affine ciphers. Thus, it would be better to work with a prime order alphabet, eg if we had 29 letters. Then, $\phi(29)=28$, so there would be $28\cdot 29=812$ different affine ciphers.
+
+\underline{Vigenere Cipher:} Apply a periodic sequence of shift/affine ciphers to your letters. 
+
+\underline{Hill Cipher:} Apply a periodic sequence of affine ciphers to blocks of letters.
+
+\section{Lecture 31}
+
+\subsection{9.1 - RSA}
+
+Shift/affine ciphers are forms of symmetric cryptosystems, in which the sender and receiver both possess the encryption/decryption key. 
+
+There are much more advanced symmetric cryptosystems, such as the DES (Data Encryption Standard) and AES (Advanced Encryption Standard).
+
+\underline{Question:} Can Bob and Alice send a message securely if they haven't agreed on a key in advance?
+
+This can be done with public key cryptography, and Diffie and Hellman were the first to come up with a public key cryptosystem. This is a form of asymmetric cryptosystem, in which the sender and receiver have different keys.
+
+Here, Alice (the receiver) has a \underline{public key} and a \underline{private key}. Everyone can see the public key, but only Alice can see the private key. Bob (the sender) uses Alice's public key to encrypt the message, and then Alice uses her private key to decrypt the message.
+
+\underline{Note:} RSA (Rivest-Shamir-Adleman) is a public key cryptosystem that relies on the difficulty of factoring large integers.
+
+Our message can always be an integer. There are various ways to encode a message into numbers, the least of which is that every data in a computer is a number.
+
+For Alice to be able to receive messages: 
+
+\textbf{Definition (RSA Algorithm):} Setup:\begin{enumerate}
+    \item Alice chooses two large primes $p$ and $q$, and computes $n=pq$ and $\phi(n)=(p-1)(q-1)$. Think VERY large, eg 100 digits each.
+    \item Alice chooses an integer $e$ such that $1<e<\phi(n)$ and $\gcd(e,\phi(n))=1$. 
+    \item Alice calculates $d$ (decryption key) with the property that $de\equiv 1\mod \phi(n)$, and 
+    \item Publishes the pair $(n,e)$ as her public key, while keeping $p, q, d, \phi(n)$ secret, with $d$ as her private key.
+\end{enumerate}Then, to encrypt:\begin{enumerate}
+    \item Bob wants to send the plaintext $m$ to Alice.
+    \item Bob looks up Alice's public key $(n,e)$, and computes the ciphertext $c\equiv m^e\mod n$.
+    \item Bob sends $c$ to Alice.
+\end{enumerate}Then, to decrypt:\begin{enumerate}
+    \item Alice receives $c$ from Bob.
+    \item Alice computes $m\equiv c^d\mod n$ and recovers the plaintext $m$.
+\end{enumerate}
+
+\underline{Note:} This can be done thanks to Euler's theorem. That is \begin{align*}
+    c^d\equiv (m^e)^d\equiv m^{ed}\pmod{n}\\
+    \equiv m^{1+k\phi(n)}\pmod{n}\text{ for some integer } k\\
+    \equiv m\cdot (m^{\phi(n)})^k\pmod{n}\\
+    \equiv m\cdot 1^k\pmod{n}\\
+    \equiv m\pmod{n}
+\end{align*}Because $ed\equiv 1\mod \phi(n)$, we can write $ed=1+k\phi(n)$ for some integer $k$. Then, we can use Euler's theorem to show that $c^d\equiv m\mod n$.
+
+\underline{Example:} (Toy example:) Alice chooses $p=17, q=31, n=17\cdot 31=527$. Then, $\phi(n)=\phi(17\cdot 31)=480$. Alice chooses $e=11$, which is coprime to 480. Then, Alice calculates $d$ such that $11d\equiv 1\mod 480$. \begin{align*}
+    11(131)+480(-3)&=1
+\end{align*}
+
+Thus, $d=131$. Alice's public key is $(527, 11)$ and her private key is $131$. 
+
+Bob wants to send $m=50$ to Alice. Bob thus computes \begin{align*}
+    c&=50^{11}\mod 527
+\end{align*}We have that \begin{align*}
+    \begin{tabular}{c|c}
+        $50^2$ & $392\pmod{527}$\\
+        $50^4$ & $392^2\equiv 307\mod{527}$\\
+        $50^8$ & $307^2\equiv 443\mod{527}$\\
+    \end{tabular}
+\end{align*}and thus \begin{align*}
+    50^{11}&=50^{8}\cdot 50^2\cdot 50^1\\
+    &\equiv 443\cdot 392\cdot 50\mod{527}\\
+    &\equiv 475\mod{527}
+\end{align*}
+So Bob sends $c=475$ to Alice. Then, Alice computes \begin{align*}
+    c^d&=475^{131}\mod{527}
+\end{align*}We have that \begin{align*}
+    \begin{tabular}{c|c}
+        $475^2$ & $69\pmod{527}$\\
+        \vdots & $\dots$\\
+        $475^{128}$ & $324\equiv 50\mod{527}$
+    \end{tabular}
+\end{align*}This ends up being \begin{align*}
+    475^{131}&=475^{128}\cdot 475^2\cdot 475^1\\
+    &\equiv 324\cdot 69\cdot 475\mod{527}\\
+    &\equiv 50\mod{527}
+\end{align*}
+
 \end{document}
