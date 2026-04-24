@@ -1909,7 +1909,7 @@ To effectively use Euler's theorem, we need to be able to compute $\phi(n)$ effi
 \underline{Example:} The only prime divisors of $120$ are $2,3,5$, so $\phi(120)=120(1-\frac{1}{2})(1-\frac{1}{3})(1-\frac{1}{5})=120\cdot \frac{1}{2}\cdot \frac{2}{3}\cdot \frac{4}{5}=32$.
 
 \underline{Sketch of Proof of Prop 8.6:} Write $\zz_n=\{0,1,\dots,n-1\}$. Then, define the function \begin{align*}
-    F:\zz_{mn}&\to \zz_m\times \zz_n\\
+    F:\zz_{mn}&\to \zz_m\times \zz_n\\ 
 \end{align*}by $F(a)=(a\pmod m, a\mod n)$. Then, $F$ is a bijection. Additionally, assuming $\gcd(m,n)=1$, the CRT says that $a\equiv b\mod mn$ if and only if $a\equiv b\mod m$ and $a\equiv b\mod n$. Thus, $F$ restricts to a bijection between the invertibles $\mod mn$ and the pairs of invertibles $\mod m$ and $\mod n$. Thus, $\phi(mn)=\phi(m)\cdot \phi(n)$. \qed 
 
 \underline{Note:} In fact, it's a ring isomorphism because $F(a+b)=(a+b\mod m, a+b\mod n)=F(a)+F(b)$ and $F(ab)=(ab\mod m, ab\mod n)=F(a)F(b)$. 
@@ -2096,5 +2096,160 @@ So Bob sends $c=475$ to Alice. Then, Alice computes \begin{align*}
     &\equiv 324\cdot 69\cdot 475\mod{527}\\
     &\equiv 50\mod{527}
 \end{align*}
+
+\section{Lecture 32}
+
+\underline{RSA:} Alice chooses two primes $p,q$ and computes $n=pq$ and $\phi(n)=(p-1)(q-1)$. Alice chooses $e$ such that $1<e<\phi(n)$ and $\gcd(e,\phi(n))=1$. Alice calculates $d$ such that $de\equiv 1\mod \phi(n)$. Alice publishes $(n,e)$ as her public key, while keeping $p,q,d,\phi(n)$ secret, with $d$ as her private key.
+
+Then, we can encrypt $c\equiv m^e\mod n$ and decrypt $m\equiv c^d\mod n$.
+
+In practice, both primes are meant to be very large (hundreds of digits each). 
+
+If Eve can factor $n$ into $p$ and $q$, then she can compute $\phi(n)=(p-1)(q-1)$, and then compute $d$ such that $de\equiv 1\mod \phi(n)$, and thus break the encryption. Alternatively, Eve could attempt to compute $\phi(n)$ directly from $n$. But this turns out to be just as hard as factoring $n$. 
+
+Decryption works because of Euler's theorem, but using Euler's Theorem requires that $\gcd(m,n)=1$. In practice it's ok if the gcd is not 1. 
+
+\textbf{Proposition (9.1):} Let $n=pq$ be a product of two distinct primes and suppose $ed\equiv 1\pmod{(p-1)(q-1)}$. Then, for any integer $m$, \begin{align*}
+    m^{ed}\equiv m\pmod n
+\end{align*}
+
+\textbf{Proof:} If $\gcd(m,n)=1$ then this follows from Euler's theorem. Else, if $\gcd(m,n)\neq 1$, then $\gcd(m,n)=p,q,\text{or }n$. 
+
+If $\gcd(m,n)=n$, then $m\equiv 0\pmod n$, and $m^{ed}\equiv 0\equiv m\mod n$.
+
+If $\gcd(m,n)=p$, then we'll prove the result $\pmod p, \pmod q$ and then use CRT to conclude the result $\pmod n$.
+
+Since $p|m$, $m\equiv 0\pmod p$ and therefore \begin{align*}
+    m^{ed}&\equiv 0\equiv m\mod p
+\end{align*}
+
+Since $ed\equiv 1\mod (p-1)(q-1)$, we can write $ed=1+k(p-1)(q-1)$ for some integer $k$. Then, \begin{align*}
+    m^{ed}&=m^{1+k(p-1)(q-1)}\\
+    &\equiv m\cdot (m^{(p-1)(q-1)})^k\mod q\\
+    &\equiv m\cdot (m^{(q-1)})^{k(p-1)}\mod q\\
+    &\equiv m\cdot 1^{k(p-1)}\mod q\\
+    &\equiv m\mod q
+\end{align*}By Fermat's theorem. Notice $q\nmid m$, so $\gcd(m,q)=1$ and we can apply Fermat's theorem. We've thus shown that $p| m^{ed}-m$ and $q|m^{ed}-m$, so $n=pq|m^{ed}-m$. Thus, $m^{ed}\equiv m\mod n$.
+
+\subsection{11.1 - Orders of Elements}
+
+Let $n$ be a positive integer and suppose $\gcd(a,n)=1$. Then, we know $a^{\phi(n)}\equiv 1\mod n$ by Euler's theorem. But sometimes $a^m\equiv 1\mod n$ for some $m<\phi(n)$.
+
+\textbf{Definition (Order):} Assuming $\gcd(a,n)=1$, the \underline{order} of $a$ $\pmod n$ is the smallest positive integer $k$ such that $a^k\equiv 1\mod n$.
+
+\underline{Remark:} Such an $m$ exists thanks to Euler's theorem. 
+
+\newcommand*{\ord}{\text{ord}}
+
+\underline{Example:} Compute $\ord_7(2)$. \begin{align*}
+    2^1\equiv 2\mod 7\\
+    2^2\equiv 4\mod 7\\
+    2^3\equiv 1\mod 7
+\end{align*}
+So $\ord_7(2)=3$.
+
+\textbf{Theorem (11.1):} Suppose $\gcd(a,n)=1$ and let $m_0=\ord_n(a)$. Then, $a^m\equiv 1\mod n$ if and only if $m_0|m$.
+
+\textbf{Proof:} $\Rightarrow$: Assume $a^m\equiv 1\mod n$. Then, we can write $m=qm_0+r$ for some integers $q,r$ with $0\leq r<m_0$. Then, \begin{align*}
+    1&\equiv a^m\\
+    &\equiv a^{qm_0+r}\\
+    &\equiv (a^{m_0})^qa^r\\
+    &\equiv 1^qa^r\\
+    &\equiv a^r\mod n
+\end{align*}Since $0\leq r<m_0$ and $m_0$ is the smallest positive integer such that $a^{m_0}\equiv 1\mod n$, we must have $r=0$. Thus, $m=qm_0$, so $m_0|m$.
+
+$\Leftarrow$: Assume $m_0|m$. Then, we can write $m=qm_0$ for some integer $q$. Then, \begin{align*}
+    a^m&=a^{qm_0}\\
+    &=(a^{m_0})^q\\
+    &\equiv 1^q\mod n\\
+    &\equiv 1\mod n
+\end{align*} \qed
+
+\section{Lecture 33}
+
+\textbf{Corollary (11.2):} \begin{enumerate}
+    \item Let $p$ be a prime and $a\not\equiv 0\pmod p$. Then, $\ord_p(a)|p-1$.
+    \item Let $n$ be a positive integer and $\gcd(a,n)=1$. Then, $\ord_n(a)|\phi(n)$.
+\end{enumerate}
+
+\textbf{Proof:} For 2, $a^{\phi(n)}\equiv 1\mod n$ by Euler's theorem, so $\ord_n(a)|\phi(n)$ by the previous theorem. For 1, we can apply 2 with $n=p$ to get $\ord_p(a)|\phi(p)=p-1$. \qed
+
+\underline{Examples:} $\pmod 7$, we have $\phi(7)=6$. Then, $\ord_7(a)|6$ for all $a$ with $\gcd(a,7)=1$. So the possible orders are 1,2,3,6. We have $\ord_7(2)=3$, $\ord_7(3)=6$, $\ord_7(4)=3$, $\ord_7(5)=6$, and $\ord_7(6)=2$.
+
+\underline{Example:} $\pmod 12$, we have $\phi(12)=4$. Then, $\ord_{12}(a)|4$ for all $a$ with $\gcd(a,12)=1$. So the possible orders are 1,2,4. We have $\ord_{12}(1)=1$, $\ord_{12}(5)=2$, $\ord_{12}(7)=2$, and $\ord_{12}(11)=2$.
+
+\underline{Example:} $p=101$ is a prime. Then, what are the possibilities for $\ord_{101}(a)$ for $a$ with $\gcd(a,101)=1$? We have $\phi(101)=100$, so the possible orders are the divisors of 100
+
+\underline{Example:} What about $\ord_{100}(a)$? Well, $\phi(100)=\phi(4)\phi(25)=\phi(2^2)\cdot \phi(5^2)=(4-2)(25-5)=40$. So the possible orders are the divisors of 40.
+
+\underline{Recall:} A mersenne number is defined for $p$ a prime and $M_p=2^p-1$. If $M_p$ is prime, then it's called a Mersenne prime.
+
+\textbf{Proposition (11.4):} Let $p,q$ primes and $q|M_p$. Then $q\equiv 1\pmod p, q\equiv 1\pmod{2p}$
+
+\textbf{Proof:} Suppose $q|M_p$. Then since $M_p=2^p-1$, we get $2^p\equiv 1\pmod q$. 
+
+This implies $\ord_q(2)|p$. Since $p$ is prime, $\ord_q(2)=1$ or $p$. If $\ord_q(2)=1$, then $2\equiv 1\mod q$, so $q|1$, which is impossible. Thus, $\ord_q(2)=p$. Then, by the previous corollary, $p|\phi(q)=q-1$. Thus, $q\equiv 1\mod p$.
+
+\underline{Example:} Factor $M_{11}=2047$. If $M_{11}$ has a nontrivial prime divisor, then it must be one that satisfies $q\leq \sqrt{2047}\approx 45.2$, and also that $q\equiv 1\mod{11}$, and in fact $q\equiv 1\mod{22}$. The only prime that satisfies these conditions is $23$, and indeed $23|2047$ since $2047=23\cdot 89$.
+
+\uppercase{Example:} Show $M_7=127$ is prime. We check all primes $q\leq \sqrt{127}\approx 11.3$ that satisfy $q\equiv 1\mod{7}$, and in fact $q\equiv 1\mod{14}$. No such $q$ exists. 
+
+\underline{Recall:} Fermat primes are defined for $n\geq 0$ and $F_n=2^{2^n}+1$. If $F_n$ is prime, then it's called a Fermat prime.
+
+\underline{Note:} Euler proved $F_5=2^{2^5}+1=4294967297$ is composite, and indeed $641|F_5$ since $F_5=641\cdot 6700417$. How did he do it?
+
+\textbf{Proposition (11.3):} Let $n\geq 2, p$ prime dividing $F_n$. Then, $p\equiv 1\mod{2^{n+2}}$.
+
+\underline{Note:} It's easiest to prove this with $\mod{2^{n+1}}$ instead of $\mod{2^{n+2}}$, but the stronger result is that $p\equiv 1\mod{2^{n+2}}$, a result of later knowledge. Proof is omitted here. 
+
+So, if $p|F_5$, then $p\equiv 1\mod{2^7}$, so $p\equiv 1\mod{128}$. This gives us a list $129, 257, 385, 513, 641, \dots$ of candidates for $p$. We check these candidates and find that $641|F_5$.
+
+\section{Lecture 34}
+
+\underline{Recall:} The order of $a$ $\pmod n$ is the smallest positive integer $k$ such that $a^k\equiv 1\mod n$.
+
+\underline{Facts:} \begin{itemize}
+    \item If $\gcd(a,n)=1$, then $\ord_n(a)|\phi(n)$.
+    \item $a^m\equiv 1\pmod n$ iff. $\ord_n(a)|m$.
+\end{itemize}
+
+\subsection{11.2 - Primitive Roots}
+
+Let $p$ be a prime, $g\not\equiv 0\pmod p$. Then recall $\ord_p(g)|p-1$, so in particular $\ord_p(g)\leq p-1$.
+
+\textbf{Definition (Primitive Root):} We say $g$ is a \underline{primitive root} $\pmod p$ if $\ord_p(g)=p-1$. (as opposed to something smaller)
+
+\underline{Example:} $\ord_5(2)=4$, so $2$ is a primitive root $\pmod 5$. 
+
+\underline{Example:} $\ord_7(2)=3$, so $2$ is not a primitive root $\pmod 7$.
+
+\begin{aside}
+\underline{HW Problem:} In general \begin{align*}
+    b^x\equiv b^y\pmod p\iff x\equiv y\pmod{\ord_p(b)}
+\end{align*}
+
+We have that $b^x\equiv b^y\pmod p$ implies $b^{x-y}\equiv 1\pmod p$, so $\ord_p(b)|x-y$, so $x\equiv y\pmod{\ord_p(b)}$.
+\end{aside}
+
+\textbf{Proposition (11.5):} Let $p$ be prime and assume $\gcd(g,p)=1$. The following are equivalent \begin{enumerate}
+    \item $g$ is a primitive root $\pmod p$.
+    \item $g$ is a generator of the group of invertibles $\pmod p$, i.e. all elements of the group are congruent to a power of $g$.
+\end{enumerate}
+
+\textbf{Proof:} The main part of $\Rightarrow$ is to consider $1, g^1, g^2, \dots, g^{p-1}$. Since $\ord_p(g)=p-1$, these are all distinct $\pmod p$. THe claim is that there are no repeats in this list. On the contrary suppose $g^i\equiv g^j\pmod p$ for some $0\leq i<j\leq p-1$. Then, $g^{j-i}\equiv 1\pmod p$, so $\ord_p(g)|j-i$. But $0<j-i<p-1$, which contradicts $\ord_p(g)=p-1$. Thus, there are no repeats in the list, so the list contains all the invertibles $\pmod p$.
+
+$\Leftarrow$: If $g$ is a generator of the group of invertibles $\pmod p$, then $g^1, g^2, \dots, g^{p-1}$ are all distinct $\pmod p$ and thus $\ord_p(g)=p-1$. \qed
+
+\textbf{Proposition (11.7):} Let $n$ be positive and $\gcd(x,n)=1$. Then, let $m=\ord_n(x)$, and let $i$ be an integer. Then \begin{align*}
+    \ord_n(x^i)=\frac{m}{\gcd(m,i)}
+\end{align*}
+
+In essence, the order of $x^i$ is the order of $x$ divided by the gcd of the order of $x$ and $i$.
+
+\textbf{Proof:} Let $k=\ord_n(x^i)$ and let $d=\gcd(i,m)$. We want to prove that $k=m/d$. 
+
+Since $(x^i)^{m/d}\equiv (x^m)^{i/d}\equiv 1^{i/d}\equiv 1\mod n$, we have $k|m/d$. Thus, $k\leq m/d$. 
+
+On the other hand, $x^{ik}\equiv (x^i)^k\equiv 1\mod n$, so $m|\gcd(ik,m)$. Since $d=\gcd(i,m)$, we can write $i=da$ and $m=db$ for some integers $a,b$ with $\gcd(a,b)=1$. Then, $db|\gcd(dak,db)$, so $b|\gcd(ak,b)$. Since $\gcd(a,b)=1$, we have $b|k$, so $k\geq b=m/d$. Thus, $k=m/d$. \qed
 
 \end{document}
