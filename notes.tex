@@ -2311,4 +2311,50 @@ Then, we know $m|p-1$ and so $p-1=mk$ for $k>1,k\in\zz$. Let $q$ be a prime divi
     &\equiv 1\mod p
 \end{align*} \qed
 
+\section{Lecture 36}
+
+\subsection{11.5 - The Discrete Log Problem}
+
+One can show that $g=2$ is a primitive root for the prime $p=19$. 
+
+Thus, every number $1,2,3,\dots,18$ has a congruence to $2^x$ for some $x$. For instance, \begin{align*}
+    2^x\equiv 3\pmod{19}
+\end{align*}has a solution. 
+
+The brute force approach is simply to make a table and try all of them. It turns out eventually that $2^{13}\equiv 3\pmod{19}$, so $x=13$ is a solution. But this is both extraordinarily tedious, inelegant, and sucks. 
+
+\textbf{Definition (Discrete Log Problem):} Given a prime $p$, a primitive root $g$ $\pmod p$, and an integer $h$ with $h\not\equiv 0\pmod p$, find the integer $x$ such that \begin{align*}
+    g^x\equiv h\pmod p
+\end{align*}
+
+Note that since $\ord_p(g)=p-1$, \begin{align*}
+    g^x\equiv g^y\pmod p\iff x\equiv y\mod{p-1}
+\end{align*}
+
+So the answer to a discrete log problem is unique $\mod{p-1}$. Thus, there are only finitely many possibilities. 
+
+The discrete log problem is believed to be hard, and in fact the security of many public key cryptosystems relies on the hardness of the discrete log problem.
+
+\subsection{12.1 - Diffie - Hellman Key Exchange}
+
+Suppose Alice, Bob want to use a very secure \underline{symmetric} cryptosystem (like AES) to communicate, but they haven't agreed on a key in advance.
+
+They need to agree on a key, but they don't want to exchange the key in person. Is there a way to generate the secret key while having communications over public channels, without Eve being able to figure out the key?
+
+In 1976, Diffie and Hellman proposed the following method: 
+
+\textbf{Definition (Diffie Hellman Key Exchange):} \begin{itemize}
+    \item Alice and Bob agree on a prime $p$ and a primitive root $g$ $\pmod p$. This is public information.
+    \item Alice choses a secret integer $a$ and computes $h_A\equiv g^a\pmod p$
+    \item Bob choses a secret integer $b$ and computes $h_B\equiv g^b\pmod p$
+    \item Alice sends $h_A$ to Bob, and Bob sends $h_B$ to Alice.
+    \item Alice computes $k\equiv h_B^a\pmod p$, and Bob computes $k'\equiv h_A^b\pmod p$. It turns out that $k\equiv k'\pmod p$, so they have agreed on a key $k$. \begin{align*}
+        h_B^a\equiv (g^b)^a\equiv g^{ab}\equiv (g^a)^b\equiv h_A^b\pmod p
+    \end{align*}
+\end{itemize}
+
+So the public information is $p,g$, and the private info is $a$ for Alice and $b$ for Bob. The shared key is $k\equiv g^{ab}\mod p$.
+
+The most obvious line of attack is to try to find $a,b$. 
+
 \end{document}
