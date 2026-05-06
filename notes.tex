@@ -699,7 +699,7 @@ Additionally, we can express them from a logic perspective:\begin{itemize}
     \end{align*}Since $3|(n^3-n)$ by the induction hypothesis, and $3|(3(n^2+n))$ by bilinearity of divisibility, it follows that $3|((n^3-n) + 3(n^2+n))$. Thus, by the principle of weak induction, we have that $3|(n^3-n)$ for all $n\geq 0$. \qed
 \end{itemize}
 
-\underline{Note:} Replace 3 with any prime $p$ to get that $p|(n^p-n)$ for all $n\geq 0$. This is a special case of Fermat's Little Theorem, which states that if $p$ is prime and $a$ is an integer not divisible by $p$, then $a^{p-1}\equiv 1 \mod p$.
+\underline{Note:} Replace 3 with any prime $p$ to get that $p|(n^p-n)$ for all $n\geq 0$. This is a special case of Fermat's Little Theorem, which states that if $p$ is prime and $a$ is an integer not divisible by $p$, then $a^{p-1}\equiv 1 \pmod p$.
 
 \textbf{Lemma (4.3):} Every integer $n\geq 2$ can be written as a product of primes \begin{align*}
     n=p_1p_2\cdots p_k
@@ -1321,15 +1321,15 @@ So, $a=b+u(m/d)$ for some integer $u$. Write $u=dq+r$ with $0\leq r\leq d-1$ as 
 
 \underline{Note:} Prime moduli are nice because they allow us to divide by any nonzero integer.
 
-\textbf{Proposition (6.10):} If $p$ is a prime and $a,b$ are integers such that $ab\equiv 0\mod p$, then $a\equiv 0\mod p$ or $b\equiv 0\mod p$.
+\textbf{Proposition (6.10):} If $p$ is a prime and $a,b$ are integers such that $ab\equiv 0\pmod p$, then $a\equiv 0\pmod p$ or $b\equiv 0\pmod p$.
 
-\textbf{Proof:} Suppose $ab\equiv 0\mod p$. If $a\equiv 0\mod p$, then we are done. If $a\not\equiv 0\mod p$, then $\gcd(a,p)=1$, so we can divide both sides of the congruence by $a$ to get $b\equiv 0\mod p$. \qed
+\textbf{Proof:} Suppose $ab\equiv 0\pmod p$. If $a\equiv 0\pmod p$, then we are done. If $a\not\equiv 0\pmod p$, then $\gcd(a,p)=1$, so we can divide both sides of the congruence by $a$ to get $b\equiv 0\pmod p$. \qed
 
 \section{Lecture 20}
 
-\textbf{Corollary (6.11):} Let $p$ be a prime. Then, the congruence $x^2\equiv 1\mod p$ has only the solutions $x\equiv 1\mod p$ and $x\equiv -1\mod p$.
+\textbf{Corollary (6.11):} Let $p$ be a prime. Then, the congruence $x^2\equiv 1\pmod p$ has only the solutions $x\equiv 1\pmod p$ and $x\equiv -1\pmod p$.
 
-\textbf{Proof:} Suppose $x^2\equiv 1\mod p$. Then, $x^2-1\equiv 0\mod p$, so $(x-1)(x+1)\equiv 0\mod p$. By the previous proposition, $x\equiv 1\mod p$ or $x\equiv -1\mod p$. \qed
+\textbf{Proof:} Suppose $x^2\equiv 1\pmod p$. Then, $x^2-1\equiv 0\pmod p$, so $(x-1)(x+1)\equiv 0\pmod p$. By the previous proposition, $x\equiv 1\pmod p$ or $x\equiv -1\pmod p$. \qed
 
 \underline{Example:} Suppose $x^2\equiv 1\mod 8$. Then, we have the four solutions $x\equiv 1\mod 8$, $x\equiv 3\mod 8$, $x\equiv 5\mod 8$, and $x\equiv 7\mod 8$.
 
@@ -1705,15 +1705,15 @@ Exam on Monday, up to and including 6.5.
 Thus we have the four solutions $x\equiv 1\mod 55$, $x\equiv 21\mod 55$, $x\equiv 34\mod 55$, and $x\equiv 54\mod 55$.
 
 \underline{Note:} Generally, if $m=p_1^{r_1}p_2^{r_2}\cdots p_k^{r_k}$, then $x^2\equiv 1\mod m$ is equivalent to the system of congruences \begin{align*}
-    x^2&\equiv 1\mod p_1^{r_1}\\
-    x^2&\equiv 1\mod p_2^{r_2}\\
+    x^2&\equiv 1\pmod{p_1^{r_1}}\\
+    x^2&\equiv 1\pmod{p_2^{r_2}}\\
     &\vdots\\
-    x^2&\equiv 1\mod p_k^{r_k}
+    x^2&\equiv 1\pmod{p_k^{r_k}}
 \end{align*}Also, genearlly, $a\equiv b\pmod m$ is equivalent to the system of congruences \begin{align*}
-    a&\equiv b\mod p_1^{r_1}\\
-    a&\equiv b\mod p_2^{r_2}\\
+    a&\equiv b\pmod{p_1^{r_1}}\\
+    a&\equiv b\pmod{p_2^{r_2}}\\
     &\vdots\\
-    a&\equiv b\mod p_k^{r_k}
+    a&\equiv b\pmod{p_k^{r_k}}
 \end{align*}
 
 \subsection{8.1 - Fermat's Theorem}
@@ -1726,7 +1726,7 @@ Additionally if $b\not\equiv 0\pmod p$, then \begin{align*}
     b^{p-1}\equiv 1\pmod p
 \end{align*}
 
-\underline{Note:} the parts of Fermat's theorem imply each other, since if $b\not\equiv 0\pmod p$, then $b^p\equiv b\mod p$ implies $b^{p-1}\equiv 1\mod p$ by multiplying by the inverse of $b\mod p$. Additionally it goes the other way around because if $b\not\equiv 0\pmod p$, then $b^{p-1}\equiv 1\mod p$ implies $b^p\equiv b\mod p$ by multiplying by $b$.
+\underline{Note:} the parts of Fermat's theorem imply each other, since if $b\not\equiv 0\pmod p$, then $b^p\equiv b\pmod p$ implies $b^{p-1}\equiv 1\pmod p$ by multiplying by the inverse of $b$ modulo $p$. Additionally it goes the other way around because if $b\not\equiv 0\pmod p$, then $b^{p-1}\equiv 1\pmod p$ implies $b^p\equiv b\pmod p$ by multiplying by $b$.
 
 \underline{Note:} Consider $b=2$. Then, \begin{align*}
     2^2\equiv 4\equiv 2\pmod 2\\
@@ -1745,9 +1745,9 @@ Additionally if $b\not\equiv 0\pmod p$, then \begin{align*}
     x=y+(p-1)k\text{ for some integer } k
 \end{align*}
 
-Then $b^x=b^{y+(p-1)k}=(b^{p-1})^kb^y\equiv 1^kb^y\equiv b^y\mod p$. \qed
+Then $b^x=b^{y+(p-1)k}=(b^{p-1})^kb^y\equiv 1^kb^y\equiv b^y\pmod p$. \qed
 
-So when working $\mod p$, we can reduce exponents $\mod p-1$.
+So when working modulo $p$, we can reduce exponents modulo $p-1$.
 
 \underline{Example:} Simplify $\pmod 5$. \begin{align*}
     127^{53}+58^{70}&\equiv 2^{53}+3^{70}\mod 5\\
@@ -1756,8 +1756,8 @@ So when working $\mod p$, we can reduce exponents $\mod p-1$.
 \end{align*}
 
 \underline{Note:} Fermat's Theorem says that if $p$ is prime and $b\not\equiv 0\pmod p$, then \begin{align*}
-    b^{p-1}\equiv 1\mod p
-\end{align*} So if $n$ is a positive integer and we find a $b\not\equiv 0\mod p$ such that $b^{n-1}\not\equiv 1\mod p$, then $n$ is not prime. For instance, $2^4=16\equiv 1\mod 5$, so this does not show that 5 is not prime. However, $2^4=16\equiv 0\not\equiv 1\mod 4$, so this shows that 4 is not prime.
+    b^{p-1}\equiv 1\pmod p
+\end{align*} So if $n$ is a positive integer and we find a $b\not\equiv 0\pmod p$ such that $b^{n-1}\not\equiv 1\pmod p$, then $n$ is not prime. For instance, $2^4=16\equiv 1\mod 5$, so this does not show that 5 is not prime. However, $2^4=16\equiv 0\not\equiv 1\mod 4$, so this shows that 4 is not prime.
 
 Also, if $2^{n-1}\not\equiv 1\pmod n$, then $n$ is composite. 
 
@@ -1806,7 +1806,7 @@ Let $b\not\equiv 0\pmod p$. Then by lemma \begin{align*}
     \{b, 2b, 3b, \dots, (p-1)b\} &=\{1, 2, 3, \dots, p-1\}\\
     \implies b\cdot 2b\cdot 3b\cdots (p-1)b&=1\cdot 2\cdot 3\cdots (p-1)\\
     b^{p-1}\cdot (p-1)!&=(p-1)!
-\end{align*}Since $\gcd((p-1)!, p)=1$, we can divide both sides by $(p-1)!$ to get $b^{p-1}\equiv 1\mod p$. \qed
+\end{align*}Since $\gcd((p-1)!, p)=1$, we can divide both sides by $(p-1)!$ to get $b^{p-1}\equiv 1\pmod p$. \qed
 
 Let $\phi(n)$ denote the number of elements in the set $T=\{1\leq k\leq n: \gcd(k,n)=1\}$. For instance, $\phi(10)=4$ since the elements of $T$ are 1,3,7,9.
 
@@ -1935,12 +1935,12 @@ Then, every $b$ with $1\leq b\leq p-1$ has an inverse $\pmod p$ because $\gcd(b,
 
 Note that $1$ is its own inverse, as is $p-1\equiv -1\pmod p$. 
 
-However, these are the only two elements with this property. We proved previously that the only solutions of $x^2\equiv 1\pmod p$ are $x\equiv \pm 1\mod p$. Thus, every other element $b$ with $1\leq b\leq p-1$ has an inverse $b^{-1}$ such that $b^{-1}\neq b$. 
+However, these are the only two elements with this property. We proved previously that the only solutions of $x^2\equiv 1\pmod p$ are $x\equiv \pm 1\pmod p$. Thus, every other element $b$ with $1\leq b\leq p-1$ has an inverse $b^{-1}$ such that $b^{-1}\neq b$. 
 
 So, \begin{align*}
-    (p-1)!&\equiv 1\cdot (p-1)\cdot \prod_{b\in S} b b^{-1}\mod p\\
-    &\equiv 1\cdot (p-1)\cdot 1\mod p\\
-    &\equiv -1\mod p
+    (p-1)!&\equiv 1\cdot (p-1)\cdot \prod_{b\in S} b b^{-1}\pmod p\\
+    &\equiv 1\cdot (p-1)\cdot 1\pmod p\\
+    &\equiv -1\pmod p
 \end{align*}
 
 \textbf{Corollary (8.13):} Let $n\geq 2$ be an integer. Then, $n$ is prime iff. \begin{align*}
@@ -2120,7 +2120,7 @@ If $\gcd(m,n)=n$, then $m\equiv 0\pmod n$, and $m^{ed}\equiv 0\equiv m\mod n$.
 If $\gcd(m,n)=p$, then we'll prove the result $\pmod p, \pmod q$ and then use CRT to conclude the result $\pmod n$.
 
 Since $p|m$, $m\equiv 0\pmod p$ and therefore \begin{align*}
-    m^{ed}&\equiv 0\equiv m\mod p
+    m^{ed}&\equiv 0\equiv m\pmod p
 \end{align*}
 
 Since $ed\equiv 1\mod (p-1)(q-1)$, we can write $ed=1+k(p-1)(q-1)$ for some integer $k$. Then, \begin{align*}
@@ -2188,7 +2188,7 @@ $\Leftarrow$: Assume $m_0|m$. Then, we can write $m=qm_0$ for some integer $q$. 
 
 \textbf{Proof:} Suppose $q|M_p$. Then since $M_p=2^p-1$, we get $2^p\equiv 1\pmod q$. 
 
-This implies $\ord_q(2)|p$. Since $p$ is prime, $\ord_q(2)=1$ or $p$. If $\ord_q(2)=1$, then $2\equiv 1\mod q$, so $q|1$, which is impossible. Thus, $\ord_q(2)=p$. Then, by the previous corollary, $p|\phi(q)=q-1$. Thus, $q\equiv 1\mod p$.
+This implies $\ord_q(2)|p$. Since $p$ is prime, $\ord_q(2)=1$ or $p$. If $\ord_q(2)=1$, then $2\equiv 1\mod q$, so $q|1$, which is impossible. Thus, $\ord_q(2)=p$. Then, by the previous corollary, $p|\phi(q)=q-1$. Thus, $q\equiv 1\pmod p$.
 
 \underline{Example:} Factor $M_{11}=2047$. If $M_{11}$ has a nontrivial prime divisor, then it must be one that satisfies $q\leq \sqrt{2047}\approx 45.2$, and also that $q\equiv 1\mod{11}$, and in fact $q\equiv 1\mod{22}$. The only prime that satisfies these conditions is $23$, and indeed $23|2047$ since $2047=23\cdot 89$.
 
@@ -2262,7 +2262,7 @@ On the other hand, $x^{ik}\equiv (x^i)^k\equiv 1\mod n$, so $m|\gcd(ik,m)$. Sinc
     g^{\frac{p-1}{2}}\equiv -1\pmod p
 \end{align*}
 
-\textbf{Proof:} Note that $-1$ is the only element of order 2 $\pmod p$. This is because for $x^2\equiv 1\pmod p, x\equiv \pm 1\mod p$. Since $g$ is a primitive root, $\ord_p(g) = p-1$. Then, $\ord_p(g^{(p-1)/2})=(p-1)/\gcd(p-1,(p-1)/2)=2$. Thus, $g^{(p-1)/2}\equiv -1\mod p$. \qed
+\textbf{Proof:} Note that $-1$ is the only element of order 2 $\pmod p$. This is because for $x^2\equiv 1\pmod p, x\equiv \pm 1\pmod p$. Since $g$ is a primitive root, $\ord_p(g) = p-1$. Then, $\ord_p(g^{(p-1)/2})=(p-1)/\gcd(p-1,(p-1)/2)=2$. Thus, $g^{(p-1)/2}\equiv -1\pmod p$. \qed
 
 \underline{Example:} $2$ is a primitive for $p=13$. For any $i$, $\ord_{13}(2^i)=\frac{12}{\gcd(12,i)}$. For instance, $\ord_{13}(2^3)=\frac{12}{\gcd(12,3)}=4$.
 
@@ -2296,19 +2296,19 @@ We can use the fact that $2$ is a primitive root $\pmod{101}$ iff. $\ord_{101}(2
 
 \textbf{Proposition (11.11):} Suppose $p$ prime and $h\not\equiv 0\pmod p$. Then, tfae: \begin{enumerate}
     \item $h$ is a primitive root $\pmod p$.
-    \item For each prime $q$ dividing $p-1$, $h^{(p-1)/q}\not\equiv 1\mod p$.
+    \item For each prime $q$ dividing $p-1$, $h^{(p-1)/q}\not\equiv 1\pmod p$.
 \end{enumerate}
 
 \textbf{Proof:} $\Rightarrow$ is clear because \begin{align*}
     1<\frac{p-1}{q}<p-1=\ord_p(h)
 \end{align*}
 
-$\Leftarrow$ we will prove the contrapositive. Suppose $h$ is not a primitive root $\pmod p$. We want that $h^{(p-1)/q}\equiv 1\mod p$ for some prime $q$ dividing $p-1$. Let $m$ be the order of $h$, and suppose $m<p-1$.
+$\Leftarrow$ we will prove the contrapositive. Suppose $h$ is not a primitive root $\pmod p$. We want that $h^{(p-1)/q}\equiv 1\pmod p$ for some prime $q$ dividing $p-1$. Let $m$ be the order of $h$, and suppose $m<p-1$.
 
 Then, we know $m|p-1$ and so $p-1=mk$ for $k>1,k\in\zz$. Let $q$ be a prime dividing $k$. Then, $k=ql$ for some integer $l$, so $p-1=mql$. Then, \begin{align*}
     h^{(p-1)/q}&=h^{mql/q}\\
     &=h^{ml}\\
-    &\equiv 1\mod p
+    &\equiv 1\pmod p
 \end{align*} \qed
 
 \section{Lecture 36}
@@ -2328,10 +2328,10 @@ The brute force approach is simply to make a table and try all of them. It turns
 \end{align*}
 
 Note that since $\ord_p(g)=p-1$, \begin{align*}
-    g^x\equiv g^y\pmod p\iff x\equiv y\mod{p-1}
+    g^x\equiv g^y\pmod p\iff x\equiv y\pmod{p-1}
 \end{align*}
 
-So the answer to a discrete log problem is unique $\mod{p-1}$. Thus, there are only finitely many possibilities. 
+So the answer to a discrete log problem is unique $\pmod{p-1}$. Thus, there are only finitely many possibilities. 
 
 The discrete log problem is believed to be hard, and in fact the security of many public key cryptosystems relies on the hardness of the discrete log problem.
 
@@ -2353,8 +2353,166 @@ In 1976, Diffie and Hellman proposed the following method:
     \end{align*}
 \end{itemize}
 
-So the public information is $p,g$, and the private info is $a$ for Alice and $b$ for Bob. The shared key is $k\equiv g^{ab}\mod p$.
+So the public information is $p,g$, and the private info is $a$ for Alice and $b$ for Bob. The shared key is $k\equiv g^{ab}\pmod p$.
 
 The most obvious line of attack is to try to find $a,b$. 
 
+\section{Lecture 37}
+
+Exam 
+
+\section{Lecture 38}
+
+\subsection{13.1 - Squares and Square Roots Mod Primes}
+
+We are studying quadratic congruences, eg \begin{align*}
+    ax^2+bx+c\equiv 0\pmod p
+\end{align*}
+
+For instance, $x^2+3x+5\equiv 0\pmod{11}$ is a quadratic congruence. 
+
+The simplest quadratic congruences have the form $x^2\equiv a\pmod p$.
+
+Some questions to ask! \begin{itemize}
+    \item Are there solutions? 
+    \item If so, how many? 
+\end{itemize}
+
+\underline{Example:} The equation $x^2\equiv 4\pmod 5$ clearly has $x\equiv 2\pmod 5$ as a solution, and $x\equiv -2\equiv 3\pmod 5$ as a solution. 
+
+\underline{Example:} The equation $x^2\equiv 6\pmod 7$ has no integer solutions 
+
+\underline{Example:} The equation $x^2\equiv 2\pmod 7$ has $x\equiv 3, 4\pmod 7$ as solutions. 
+
+We are interested in understanding which numbers are squares mod p, where $p$ is an odd prime, $p>2$. This is because $x^2\equiv a\pmod p$ has a solution iff. $a$ is a square $\pmod p$. We only consider odd primes because $x^2\equiv a\pmod 2$ is trivial, since $x^2\equiv 0\text{ or }1\pmod 2$.
+
+\underline{Example:} Counting, $\pmod 5$ has $1,4$ as nonzero squares. $\pmod 7$ has $1,2,4$ as nonzero squares. $\pmod{11}$ has $1,3,4,5,9$ as nonzero squares. 
+
+\textbf{Proposition:} Let $p$ be an odd prime, and let $a\not\equiv 0\pmod p$. Then, if $x^2\equiv a\pmod p$ has a solution $x\equiv b\pmod p$, then $x^2\equiv a\pmod p$ has exactly two solutions, $x\equiv \pm b\pmod p$. 
+
+\begin{aside}
+Recall that for a prime $p$, $ab\equiv 0\pmod p$ implies $a\equiv 0\pmod p$ or $b\equiv 0\pmod p$. This is because if $ab\equiv 0\pmod p$, then $p|ab$, so $p|a$ or $p|b$, so $a\equiv 0\pmod p$ or $b\equiv 0\pmod p$.
+\end{aside}
+
+\textbf{Proof:} Assume $b$ is a solution of $x^2\equiv a\pmod p$. Then, $(-b)^2\equiv b^2\equiv a\pmod p$, so $-b$ is also a solution. We will show they are distinct $\pmod p$. If $b\equiv -b\pmod p$, then $2b\equiv 0\pmod p$, which implies either that $2\equiv 0\pmod p$, which is impossible since $p$ is odd, or that $b\equiv 0\pmod p$, which is impossible since $a\not\equiv 0\pmod p$. Thus, $b\not\equiv -b\pmod p$, so $b,-b$ are distinct solutions.
+
+Now, we will show that there are no other solutions. Suppose $c$ is a solution of $x^2\equiv a\pmod p$. Then, $c^2\equiv b^2\pmod p$, so $p|c^2-b^2=(c-b)(c+b)$. Since $p$ is prime, $p|c-b$ or $p|c+b$. Thus, $c\equiv b\pmod p$ or $c\equiv -b\pmod p$. \qed
+
+Let's determine all odd primes $p$ such that $x^2\equiv -1\pmod p$ has a solution. 
+
+\textbf{Proposition:} Let $p>2$ be a prime. Then, $x^2\equiv -1\pmod p$ has a solution iff. $p\equiv 1\pmod 4$.
+
+\textbf{Proof:} $\Rightarrow$: Assume $x^2\equiv -1\pmod p$. We claim $\ord_p(x)=4$. Since $x^2\equiv -1\pmod p$, we have $x^4\equiv 1\pmod p$, so $\ord_p(x)|4$. $x\not\equiv 1\pmod p$ because if $x$ were 1 then the product of $x$ squared would not be 1. Since $x^2\not\equiv 1\pmod p$, we have $\ord_p(x)\neq 1,2$, so $\ord_p(x)=4$. 
+
+But $\ord_p(x)|\phi(p)=p-1$, so $4|\phi(p)=p-1$. Thus, $p\equiv 1\pmod 4$.
+
+$\Leftarrow$ Suppose $p\equiv 1\pmod 4$. Then, let $g$ be a primitive root $\pmod p$. Then, consider $x\equiv g^{(p-1)/4}\pmod p$. We have $x^2\equiv g^{(p-1)/2}\equiv -1\pmod p$ by the previous proposition (Prop 11.6). \qed
+
+\textbf{Definition:} Let $p$ be an odd prime, and $a\not\equiv 0\pmod p$. We say $a$ is a \underline{quadratic residue} $\pmod p$ if $x^2\equiv a\pmod p$ has a solution, and we say $a$ is a \underline{quadratic nonresidue} $\pmod p$ if $x^2\equiv a\pmod p$ has no solution. Equivalently $a$ is a square mod p. 
+
+\textbf{Definition (Legendre Symbol):} Let $p$ be an odd prime, and $a\not\equiv 0\pmod p$. Define the \underline{Legendre Symbol} as \begin{align*}
+    (\frac{a}{p})=\begin{cases}
+        1 & \text{if }a\text{ is a quadratic residue }\pmod p\\
+        -1 & \text{if }a\text{ is a quadratic nonresidue }\pmod p
+    \end{cases}
+\end{align*}
+
+Roughly, "Quadratic Reciprocity" is a set of rules/laws/formulas to evaluate Legendre symbols
+
+For instance,
+
+\underline{Example:} $(\frac{58}{101})$ is a question of whether $x^2\equiv 58\pmod{101}$ has a solution.
+
+\section{Lecture 39}
+
+We are looking at the Quadratic Reciprocity theorem. The fundamental question is: Given a prime $p>2$ and an integer $a\not\equiv 0\pmod p$, does $x^2\equiv a\pmod p$ have a solution? 
+
+\textbf{Proposition (13.1):} Let $p$ be an odd prime and $a\not\equiv 0\pmod p$. Then \begin{align*}
+    a^{\frac{p-1}{2}}\equiv \pm 1\pmod p
+\end{align*}
+
+Moreover, $a$ is a square $\pmod p\iff a^{\frac{p-1}{2}}\equiv 1\pmod p$
+
+\textbf{Proof:} The first part: Let $b\equiv a^{(p-1)/2}\pmod p$. Then, $b^2\equiv a^{p-1}\equiv 1\pmod p$ by Fermat's theorem. By Corollary 6.11, $b\equiv 1\pmod p$ or $b\equiv -1\pmod p$.
+
+The second part: $\Rightarrow$: Let $a$ be a square, and $x^2\equiv a\pmod p$. Note $x\not\equiv 0$ because if it were, then a would be equivalent to 0 and we have a contradiction by the premise of the theorem. Then, $a^{(p-1)/2}\equiv (x^2)^{(p-1)/2}\equiv x^{p-1}\equiv 1\pmod p$ by Fermat's theorem.
+
+$\Leftarrow$: Assume $a^{(p-1)/2}\equiv 1\pmod p$. Let $g$ be a primitive root $\pmod p$. Then, we can write $a\equiv g^k\pmod p$ for some integer $k$. Then, \begin{align*}
+    1&\equiv a^{(p-1)/2}\\
+    &\equiv (g^k)^{(p-1)/2}\\
+    &\equiv g^{k(p-1)/2}\mod p
+\end{align*}Since $g$ is a primitive root, $\ord_p(g)=p-1$, so $g^m\equiv 1\mod p$ iff. $p-1|m$. Thus, $p-1|k(p-1)/2$, so $2|k$. Thus, $k=2l$ for some integer $l$, so $a\equiv g^k\equiv g^{2l}\equiv (g^l)^2\mod p$, so $a$ is a square $\pmod p$. \qed
+
+\underline{Example:} Is $a=2$ a square mod 17? That is, $2^{(17-1)/2}=2^8\equiv 1\mod{17}$, so $2$ is a square $\pmod{17}$.
+
+Given an odd prime $p$ and $a\not\equiv 0\pmod p$, we defined last time the Legendre symbol $(\frac{a}{p})$ to be $1$ if $a$ is a square $\pmod p$, and $-1$ if $a$ is a non-square $\pmod p$.
+
+\textbf{Proposition (13.3):} Let $p$ be an odd prime and $a,b\not\equiv 0\pmod p$. Then \begin{enumerate}
+    \item (Euler's Criterion) $(\frac{a}{p})\equiv a^{(p-1)/2}\pmod p$
+    \item $(\frac{ab}{p})=(\frac{a}{p})(\frac{b}{p})$
+    \item If $a\equiv b\pmod p$, then $(\frac{a}{p})=(\frac{b}{p})$
+\end{enumerate}
+
+\textbf{Proof:} 1 is a restatement of the previous proposition, and 3 is clear. For 2, we have \begin{align*}
+    (\frac{ab}{p})&\equiv (ab)^{(p-1)/2}\pmod p\\
+    &\equiv a^{(p-1)/2}b^{(p-1)/2}\pmod p\\
+    &\equiv (\frac{a}{p})(\frac{b}{p})\pmod p
+\end{align*} \qed
+
+\textbf{Theorem (13.4):} (Quadratic Reciprocity): Let $p,q$ be odd primes. Then, \begin{enumerate}
+    \item \begin{align*}
+        (\frac{q}{p})=(-1)^{\frac{(p-1)(q-1)}{4}}(\frac{p}{q})
+    \end{align*}That is, \begin{align*}
+        (\frac{q}{p})&=(\frac{p}{q})\text{ if }p\equiv 1\text{ or }q\equiv 1\pmod 4\\
+        (\frac{q}{p})&=-(\frac{p}{q})\text{ if }p\equiv q\equiv 3\pmod 4
+    \end{align*}
+    \item Let $p$ be an odd prime. Then, \begin{align*}
+        (\frac{-1}{p})=(-1)^{\frac{p-1}{2}}=\begin{cases}
+            1 & \text{if }p\equiv 1\pmod 4\\
+            -1 & \text{if }p\equiv 3\pmod 4
+        \end{cases}
+    \end{align*}
+    \item let $p$ be an odd prime. Then, \begin{align*}
+        (\frac{2}{p})=(-1)^{\frac{p^2-1}{8}}=\begin{cases}
+            1 & \text{if }p\equiv 1\text{ or }7\pmod 8\\
+            -1 & \text{if }p\equiv 3\text{ or }5\pmod 8
+        \end{cases}
+    \end{align*}
+\end{enumerate}Part 1 is the main theorem; 2 and 3 are Supplementary laws conjectured by Euler and proven by Gauss at the age of 18.
+
+\underline{Example:} Find $(\frac{29}{59})$. 
+
+First, is $29\equiv 1\pmod 4$? Yes. Thus, \begin{align*}
+    (\frac{29}{59})&=(\frac{59}{29})\\
+    &=(\frac{1}{29})\\
+    &=1
+\end{align*}
+
+\underline{Example:} Find $(\frac{11}{43})$. 
+
+First, $11\equiv 3\pmod 4, 43\equiv 3\pmod 4$, so \begin{align*}
+    (\frac{11}{43})&=-(\frac{43}{11})\\
+    &=- (\frac{10}{11})\\
+    &=- (\frac{-1}{11})\\
+    &=- (-1)^{(11-1)/2}\\
+    &=- (-1)^5\\
+    &=1
+\end{align*}
+
+Alternatively we could do \begin{align*}
+    (\frac{11}{43})&=-(\frac{43}{11})\\
+    &=- (\frac{10}{11})\\
+    &=- (\frac{2}{11})(\frac{5}{11})\\
+    &=- (\frac{2}{11})(\frac{11}{5})\\
+    &=- (\frac{2}{11})(\frac{1}{5})\\
+    &=- (\frac{2}{11})\\
+    &=- (-1)^{(11^2-1)/8}\\
+    &=- (-1)^{15}\\
+    &=1
+\end{align*}
+
+\section{Lecture 40}
+
+Last time: the assignment problem
+ 
 \end{document}
